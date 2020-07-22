@@ -1,0 +1,25 @@
+@media only screen and (min-width: 600px) {
+  .container-mes-simulateur {
+    padding: 70px;
+    height: 50%;
+  }
+}
+
+.container-card-simulateurs {
+  padding-right: 60px;
+  padding-left: 80px;
+}
+.header-statistiques {
+  margin-bottom: 10px;
+}
+.container-button-add-simulateur {
+  text-align: center;
+  margin: 20px;
+}
+.button-add-simulateur {
+  width: 60px;
+  height: 60px;
+}
+.container-card-simulateur {
+  margin-bottom: 30px;
+}
