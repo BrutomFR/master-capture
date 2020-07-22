@@ -32,7 +32,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
       {monContext.User.get.newUser && <PopupNewUser />}
       <Layout>
         {monContext.SizeScreenUser.get < 500 ? (       
-          <div>MOBILE DETECTE CREER MENU POUR RECUPERER LA PLACE</div>  
+          <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE</div>  
         ) : (
           <Sider trigger={null} collapsible collapsed={collapsed}>
             <div onClick={toggle} className="menu-left">
