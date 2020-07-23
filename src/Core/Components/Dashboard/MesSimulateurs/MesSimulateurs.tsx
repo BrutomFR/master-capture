@@ -10,6 +10,7 @@ import { Context, IContext } from "../../../../Utils/context";
 import "./.css";
 import CardSimulateur from "./CardSimulateur/CardSimulateur";
 import PopupConfigSimulateur from "./PopupConfigSimulateur/PopupConfigSimulateur";
+import PopupStatistiqueSimulateur from "./PopupStatistiqueSimulateur/PopupStatistiqueSimulateur";
 import { IMesSimulateurs } from "./props";
 import RechartsSimulateur from "./RechartsSimulateur/RechartsSimulateur";
 
@@ -18,7 +19,10 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
 
   const [configSimulateurPopup, setConfigSimulateurPopup] = useState<boolean>(
     false
-  ); // POPUP CONFIG OPEN ?
+  ); // POPUP CONFIG OPEN
+  const [statsSimulateurPopup, setStatSimulateurPopup] = useState<boolean>(
+    false
+  ); // POPUP CONFIG OPEN
   const [selectedSimulateur, setSelectedSimulateur] = useState<number>(-1); // Index du simulateur séléctionné
   const [switchChecked, setSwitchChecked] = useState<boolean>(true); // Séléctionne tous les simulateurs
   useEffect(() => {
@@ -39,13 +43,17 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
           simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
         />
       ) : null}
+      {statsSimulateurPopup ? (
+        <PopupStatistiqueSimulateur
+          visible={statsSimulateurPopup}
+          setVisible={setStatSimulateurPopup}
+          simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
+        />
+      ) : null}
       <div className="site-card-wrapper">
+        <RechartsSimulateur selectedSimulateur={selectedSimulateur} />
         <div className="container-card-simulateur">
-          <Card
-            title="Mes simulateurs:"
-            bordered={true}
-            className="container-card-simulateur"
-          >
+          <Card title="Mes simulateurs:" bordered={true}>
             <Row
               gutter={{
                 md: 24,
@@ -62,7 +70,8 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                     }}
                   >
                     <CardSimulateur
-                      openPopup={setConfigSimulateurPopup}
+                      openPopupStatistiques={setStatSimulateurPopup}
+                      openPopupConfig={setConfigSimulateurPopup}
                       simulateur={value}
                     />
                   </div>
@@ -83,7 +92,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
         <div className="container-card-simulateur">
           <Card title="Mes statistiques:" bordered={true}>
             <div className="header-statistiques">
-              Tous les simulateurs:{" "}
+              Tous les simulateurs:
               <Switch
                 checked={switchChecked}
                 onChange={(e) => {
@@ -93,7 +102,6 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                 }}
               />
             </div>
-            <RechartsSimulateur selectedSimulateur={selectedSimulateur} />
           </Card>
         </div>
       </div>

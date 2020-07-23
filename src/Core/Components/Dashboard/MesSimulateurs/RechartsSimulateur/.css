@@ -1,3 +1,7 @@
 .recharts-wrapper {
-    margin-left: -0px;
+  margin-left: -0px;
+}
+.antd-pro-charts-chart-card-meta {
+  font-weight: bold;
+  color: black;
 }

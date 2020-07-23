@@ -2,5 +2,6 @@ import { IPages_Simulations } from "../../../../Interfaces/User/IPages_Simulatio
 
 export interface ICardSimulateur {
   simulateur: IPages_Simulations;
-  openPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  openPopupConfig: React.Dispatch<React.SetStateAction<boolean>>;
+  openPopupStatistiques:  React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -1,4 +1,8 @@
-import { EditOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+  BarChartOutlined,
+  EditOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import React, { FunctionComponent, useEffect } from "react";
 import ImgLogo from "../../../../../Img/logo-bruton-blanc-300x300.png";
@@ -19,9 +23,14 @@ const CardSimulateur: FunctionComponent<ICardSimulateur> = (props) => {
           translate="yes"
           key="setting"
           // tslint:disable-next-line:jsx-no-lambda
-          onClick={() => props.openPopup(true)}
+          onClick={() => props.openPopupConfig(true)}
         />,
         <EditOutlined translate="yes" key="edit" />,
+        <BarChartOutlined
+          translate="yes"
+          key="stats"
+          onClick={() => props.openPopupStatistiques(true)}
+        />,
       ]}
     >
       <Meta avatar={<Avatar src={ImgLogo} />} title={props.simulateur.Nom} />

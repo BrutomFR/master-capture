@@ -1,14 +1,9 @@
 @media only screen and (min-width: 600px) {
   .container-mes-simulateur {
-    padding: 70px;
-    height: 50%;
+    padding: 20px;
   }
 }
 
-.container-card-simulateurs {
-  padding-right: 60px;
-  padding-left: 80px;
-}
 .header-statistiques {
   margin-bottom: 10px;
 }
@@ -22,4 +17,5 @@
 }
 .container-card-simulateur {
   margin-bottom: 30px;
+  margin-top: 20px;
 }

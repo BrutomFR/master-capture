@@ -33,19 +33,19 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
     <div>
       {monContext.User.get.newUser && <PopupNewUser />}
       <Layout>
-        {monContext.SizeScreenUser.get < 500 ? (       
-          <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>  
+        {monContext.SizeScreenUser.get < 500 ? (
+          <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>
         ) : (
           <Sider trigger={null} collapsible={true} collapsed={collapsed}>
             <div onClick={toggle} className="menu-left">
-               <MenuOutlined
+              <MenuOutlined
                 translate="yes"
                 className="trigger"
                 style={{
                   color: "white",
                   fontSize: "25px",
                 }}
-              /> 
+              />
             </div>
             <div className="header-logo-brutom">
               <img
@@ -64,17 +64,14 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
               <Col span={8}>
                 <h3>Bienvenue {monContext.User.get.Prenom} !</h3>
               </Col>
-              {/* tslint:disable-next-line:jsx-self-close */}     
+              {/* tslint:disable-next-line:jsx-self-close */}
               <Col span={8}></Col>
               <Col span={8} className="profile-menu">
                 <ProfileMenu />
               </Col>
             </Row>
           </Header>
-          <Content
-            style={{ minHeight: "auto" }}
-            className="site-layout-background content"
-          >
+          <Content style={{ minHeight: "auto" }}>
             {contentSelected === "Accueil" ? (
               <Accueil />
             ) : contentSelected === "Mes simulateurs" ? (

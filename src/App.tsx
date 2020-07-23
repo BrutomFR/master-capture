@@ -1,3 +1,4 @@
+import 'ant-design-pro/dist/ant-design-pro.css'; 
 import "antd/dist/antd.css";
 import firebase from "firebase";
 import  { FunctionComponent, useEffect, useState } from "react";
