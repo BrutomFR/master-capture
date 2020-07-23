@@ -1,6 +1,6 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { ChartCard, Field, MiniArea } from "ant-design-pro/lib/Charts";
-import { Col, Row, Select, Tooltip } from "antd";
+import { Select, Tooltip } from "antd";
 import numeral from "numeral";
 import React, {
   FunctionComponent,
@@ -114,9 +114,9 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
         <Option value="180">6 derniers mois</Option>
         <Option value="365">12 derniers mois</Option>
       </Select>
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col span={6}>
-          <ChartCard
+      <div className="row">
+        <div className="column">
+        <ChartCard
             title={<div>Taux de conversion</div>}
             action={
               <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminées.">
@@ -124,14 +124,14 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
               </Tooltip>
             }
             total={
-                <div>
-                  {(
-                    ((emails / visiteurs) * 100 +
-                      (simulateurs / visiteurs) * 100) /
-                    2
-                  ).toFixed(2)}
-                  %
-                </div>
+              <div>
+                {(
+                  ((emails / visiteurs) * 100 +
+                    (simulateurs / visiteurs) * 100) /
+                  2
+                ).toFixed(2)}
+                %
+              </div>
             }
             footer={<Field label="Aujourd'hui:" value={"-"} />}
             contentHeight={60}
@@ -141,9 +141,9 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
               Simulateur: {((simulateurs / visiteurs) * 100).toFixed(2)}%
             </div>
           </ChartCard>
-        </Col>
-        <Col span={6}>
-          <ChartCard
+        </div>
+        <div className="column">
+        <ChartCard
             title={<div>Visiteurs</div>}
             contentHeight={60}
             action={
@@ -163,9 +163,9 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           >
             <MiniArea line height={60} data={visiteursGraphique} />
           </ChartCard>
-        </Col>
-        <Col span={6}>
-          <ChartCard
+        </div>
+        <div className="column">
+        <ChartCard
             title={<div>Capture d'emails</div>}
             contentHeight={60}
             action={
@@ -185,9 +185,9 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           >
             <MiniArea line height={60} data={emailsGraphique} />
           </ChartCard>
-        </Col>
-        <Col span={6}>
-          <ChartCard
+        </div>
+        <div className="column">
+        <ChartCard
             title={<div>Simulateurs remplis</div>}
             contentHeight={60}
             action={
@@ -208,8 +208,8 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           >
             <MiniArea line height={60} data={simulateursValideGraphique} />
           </ChartCard>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

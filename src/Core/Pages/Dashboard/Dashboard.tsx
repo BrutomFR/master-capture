@@ -20,7 +20,7 @@ const { Header, Sider, Content } = Layout;
 const Dashboard: FunctionComponent<IDashboard> = (props) => {
   const monContext: IContext = useContext(Context);
   const [collapsed, setCollapsed] = useState<boolean>(
-    monContext.SizeScreenUser.get < 500 ? true : false
+    monContext.SizeScreenUser.get < 900 ? true : false
   );
   const [contentSelected, setContentSelected] = useState<string>("Accueil");
   useEffect(() => {

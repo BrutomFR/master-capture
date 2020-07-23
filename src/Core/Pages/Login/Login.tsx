@@ -21,7 +21,6 @@ const Login: FunctionComponent<ILogin> = (props) => {
     FirebaseHelper.SignIn(nomDeCompte, motDePasse).catch((error) =>
       setResponseConnexion(error.message)
     );
-
   useEffect(() => {
     return () => {
       //
