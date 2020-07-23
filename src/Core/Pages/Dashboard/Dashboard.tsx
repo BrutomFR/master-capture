@@ -1,20 +1,20 @@
+import { MenuOutlined } from "@ant-design/icons";
+import { Col, Layout, Row } from "antd";
 import React, {
   FunctionComponent,
-  useEffect,
   useContext,
+  useEffect,
   useState,
 } from "react";
-import { IDashboard } from "./props";
-import PopupNewUser from "../../Components/PopupNewUser/PopupNewUser";
-import { IContext, Context } from "../../../Utils/context";
-import { Layout, Row, Col } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
-import ProfileMenu from "../../Components/Header/ProfileMenu/ProfileMenu";
-import "./.css";
-import Accueil from "../../Components/Dashboard/Accueil/Accueil";
-import ListPagesMenu from "../../Components/Dashboard/Menu/ListPagesMenu";
 import ImgLogo from "../../../Img/logo-bruton-blanc-300x300.png";
+import { Context, IContext } from "../../../Utils/context";
+import Accueil from "../../Components/Dashboard/Accueil/Accueil";
+import ProfileMenu from "../../Components/Dashboard/Header/ProfileMenu/ProfileMenu";
+import ListPagesMenu from "../../Components/Dashboard/Menu/ListPagesMenu";
 import MesSimulateurs from "../../Components/Dashboard/MesSimulateurs/MesSimulateurs";
+import PopupNewUser from "../../Components/PopupNewUser/PopupNewUser";
+import "./.css";
+import { IDashboard } from "./props";
 
 const { Header, Sider, Content } = Layout;
 const Dashboard: FunctionComponent<IDashboard> = (props) => {
@@ -24,7 +24,9 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
   );
   const [contentSelected, setContentSelected] = useState<string>("Accueil");
   useEffect(() => {
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
   const toggle = () => setCollapsed(!collapsed);
   return (
@@ -34,16 +36,16 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
         {monContext.SizeScreenUser.get < 500 ? (       
           <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>  
         ) : (
-          <Sider trigger={null} collapsible collapsed={collapsed}>
+          <Sider trigger={null} collapsible={true} collapsed={collapsed}>
             <div onClick={toggle} className="menu-left">
-              <MenuOutlined
-                translate=""
+               <MenuOutlined
+                translate="yes"
                 className="trigger"
                 style={{
                   color: "white",
                   fontSize: "25px",
                 }}
-              />
+              /> 
             </div>
             <div className="header-logo-brutom">
               <img
@@ -62,6 +64,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
               <Col span={8}>
                 <h3>Bienvenue {monContext.User.get.Prenom} !</h3>
               </Col>
+              {/* tslint:disable-next-line:jsx-self-close */}     
               <Col span={8}></Col>
               <Col span={8} className="profile-menu">
                 <ProfileMenu />

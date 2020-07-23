@@ -1,19 +1,21 @@
-import React, {
-  FunctionComponent,
-  //useState,
-  useEffect,
-  //useContext,
-} from "react";
 // import { Context, IContext } from "../../../../Utils/context";
 import { Timeline } from "antd";
+import React, {
+  FunctionComponent,
+  // useState,
+  useEffect,
+  // useContext,
+} from "react";
 import "./.css";
 import { IAccueil } from "./props";
 
 const Accueil: FunctionComponent<IAccueil> = (props) => {
-  //const monContext: IContext = useContext(Context);
+  // const monContext: IContext = useContext(Context);
 
   useEffect(() => {
-    return () => {};
+    return () => { 
+      // 
+    };
   }, []);
 
   return (

@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import * as FirebaseHelper from "../../../Utils/FirebaseHelper";
-import { ILogin } from "./props";
-import "./.css";
-import { Form, Input, Button, Checkbox } from "antd";
-import { Store } from "antd/lib/form/interface";
-import ImgLog from "../../../Img/logo-bruton-blanc-300x300.png";
 import { UserOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input } from "antd";
+import { Store } from "antd/lib/form/interface";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import ImgLog from "../../../Img/logo-bruton-blanc-300x300.png";
+import * as FirebaseHelper from "../../../Utils/FirebaseHelper";
+import "./.css";
+import { ILogin } from "./props";
 
 const Login: FunctionComponent<ILogin> = (props) => {
   // Variables pour les inputs
@@ -23,7 +23,9 @@ const Login: FunctionComponent<ILogin> = (props) => {
     );
 
   useEffect(() => {
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
 
   const onFinishFailed = (errorInfo: Store) =>
@@ -45,7 +47,7 @@ const Login: FunctionComponent<ILogin> = (props) => {
             <Input
               placeholder="Email"
               prefix={
-                <UserOutlined translate="" className="site-form-item-icon" />
+                <UserOutlined translate="yes" className="site-form-item-icon" />
               }
               onChange={handleSetNomDeCompte}
             />
@@ -53,7 +55,7 @@ const Login: FunctionComponent<ILogin> = (props) => {
               style={{ marginTop: "20px" }}
               placeholder="Mot de passe"
               prefix={
-                <UserOutlined translate="" className="site-form-item-icon" />
+                <UserOutlined translate="yes" className="site-form-item-icon" />
               }
               onChange={handleSetMotdePasse}
             />
@@ -69,6 +71,7 @@ const Login: FunctionComponent<ILogin> = (props) => {
 
             <Form.Item>
               <Button
+                // tslint:disable-next-line:jsx-no-lambda
                 onClick={() => {
                   setLoadingButton(true);
                   setTimeout(() => setLoadingButton(false), 2000);

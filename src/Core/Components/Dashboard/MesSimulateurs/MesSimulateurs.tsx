@@ -1,28 +1,44 @@
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Row, Switch, Tooltip } from "antd";
 import React, {
   FunctionComponent,
-  useState,
-  useEffect,
   useContext,
+  useEffect,
+  useState,
 } from "react";
 import { Context, IContext } from "../../../../Utils/context";
-import { IMesSimulateurs } from "./props";
 import "./.css";
-import { Switch, Col, Row, Button, Tooltip, Card } from "antd";
 import CardSimulateur from "./CardSimulateur/CardSimulateur";
+import PopupConfigSimulateur from "./PopupConfigSimulateur/PopupConfigSimulateur";
+import { IMesSimulateurs } from "./props";
 import RechartsSimulateur from "./RechartsSimulateur/RechartsSimulateur";
-import { PlusOutlined } from "@ant-design/icons";
 
 const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
   const monContext: IContext = useContext(Context);
-  const [selectedSimulateur, setSelectedSimulateur] = useState<number>(-1);
-  const [switchChecked, setSwitchChecked] = useState<boolean>(true);
+
+  const [configSimulateurPopup, setConfigSimulateurPopup] = useState<boolean>(
+    false
+  ); // POPUP CONFIG OPEN ?
+  const [selectedSimulateur, setSelectedSimulateur] = useState<number>(-1); // Index du simulateur séléctionné
+  const [switchChecked, setSwitchChecked] = useState<boolean>(true); // Séléctionne tous les simulateurs
   useEffect(() => {
-    selectedSimulateur != -1 ? setSwitchChecked(false) : setSwitchChecked(true);
-    return () => {};
+    selectedSimulateur !== -1
+      ? setSwitchChecked(false)
+      : setSwitchChecked(true);
+    return () => {
+      //
+    };
   }, [selectedSimulateur]);
 
   return (
     <div className="container-mes-simulateur">
+      {configSimulateurPopup ? (
+        <PopupConfigSimulateur
+          visible={configSimulateurPopup}
+          setVisible={setConfigSimulateurPopup}
+          simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
+        />
+      ) : null}
       <div className="site-card-wrapper">
         <div className="container-card-simulateur">
           <Card
@@ -32,15 +48,23 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
           >
             <Row
               gutter={{
-                xs: 8,
-                sm: 16,
                 md: 24,
+                sm: 16,
+                xs: 8,
               }}
             >
               {monContext.User.get.pages_simulations.map((value, i) => (
                 <Col key={i}>
-                  <div onClick={() => setSelectedSimulateur(i)}>
-                    <CardSimulateur simulateur={value} />
+                  <div
+                    onClick={() => {
+                      // tslint:disable-next-line:jsx-no-lambda
+                      setSelectedSimulateur(i);
+                    }}
+                  >
+                    <CardSimulateur
+                      openPopup={setConfigSimulateurPopup}
+                      simulateur={value}
+                    />
                   </div>
                 </Col>
               ))}
@@ -50,7 +74,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                 <Button
                   size="large"
                   shape="circle"
-                  icon={<PlusOutlined translate="" />}
+                  icon={<PlusOutlined translate="yes" />}
                 />
               </Tooltip>
             </div>
@@ -62,7 +86,11 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
               Tous les simulateurs:{" "}
               <Switch
                 checked={switchChecked}
-                onChange={(e) => (e ? setSelectedSimulateur(-1) : null)}
+                onChange={(e) => {
+                  // tslint:disable-next-line:jsx-no-lambda
+                  // tslint:disable-next-line:no-unused-expression
+                  e ? setSelectedSimulateur(-1) : null;
+                }}
               />
             </div>
             <RechartsSimulateur selectedSimulateur={selectedSimulateur} />

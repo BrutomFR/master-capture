@@ -1,20 +1,24 @@
+import { Avatar, Button, Popover } from "antd";
 import React, {
   FunctionComponent,
   // useState,
-  useEffect,
   useContext,
+  useEffect,
 } from "react";
-import { Context, IContext } from "../../../../Utils/context";
-import { IProfileMenu } from "./props";
-import { Popover, Button, Avatar } from "antd";
-import * as FirebaseHelper from "../../../../Utils/FirebaseHelper";
+import { Context, IContext } from "../../../../../Utils/context";
+import * as FirebaseHelper from "../../../../../Utils/FirebaseHelper";
 import "./.css";
+import { IProfileMenu } from "./props";
 const ProfileMenu: FunctionComponent<IProfileMenu> = (props) => {
   const monContext: IContext = useContext(Context);
 
   useEffect(() => {
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
+
+  const Logout = () => FirebaseHelper.LogOut();
 
   return (
     <div>
@@ -36,9 +40,7 @@ const ProfileMenu: FunctionComponent<IProfileMenu> = (props) => {
                   </a>
                 </div>
               </div>
-              <Button onClick={() => FirebaseHelper.LogOut()}>
-                Se déconnecter
-              </Button>
+              <Button onClick={Logout}>Se déconnecter</Button>
             </div>
           }
           trigger="click"

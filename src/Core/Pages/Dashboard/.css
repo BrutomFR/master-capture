@@ -32,7 +32,9 @@ components-layout-demo-custom-trigger .trigger {
   min-height: 280;
 }
 .header {
-  padding: 0;
+  padding: 0px;
+  padding-right: 20px;
+  padding-left: 20px;
   background: white;
 }
 .menu-left {

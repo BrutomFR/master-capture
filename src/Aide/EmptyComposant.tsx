@@ -1,17 +1,18 @@
 import React, {
   FunctionComponent,
-  useState,
   useEffect,
-  useContext,
+  // useContext,
 } from "react";
-import { Context, IContext } from "../Utils/context";
-import { IEmptyComposant } from "./props";
 import "./.css";
+// import { Context, IContext } from "../Utils/context";
+import { IEmptyComposant } from "./props";
 const EmptyComposant: FunctionComponent<IEmptyComposant> = (props) => {
-  const monContext: IContext = useContext(Context);
+  // const monContext: IContext = useContext(Context);
 
   useEffect(() => {
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
 
   return (

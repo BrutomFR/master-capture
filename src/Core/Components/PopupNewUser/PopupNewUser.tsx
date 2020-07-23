@@ -1,18 +1,21 @@
+import {
+  ExclamationCircleTwoTone,
+  InfoCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Modal, Tooltip } from "antd";
+import { Input } from "antd";
 import React, {
   FunctionComponent,
-  useState,
-  useEffect,
   useContext,
+  useEffect,
+  useState,
 } from "react";
 import { Context, IContext } from "../../../Utils/context";
-import { IPopupNewUser } from "./props";
-import { Modal, Button } from "antd";
-import { ExclamationCircleTwoTone } from "@ant-design/icons";
-import { Input, Tooltip } from "antd";
-import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
-import "./.css";
-import { IUser } from "../../Interfaces/IUser";
 import * as FirebaseHelper from "../../../Utils/FirebaseHelper";
+import { IUser } from "../../Interfaces/IUser";
+import "./.css";
+import { IPopupNewUser } from "./props";
 const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
   const monContext: IContext = useContext(Context);
   const [visible, setVisible] = useState<boolean>(false);
@@ -24,7 +27,9 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
     setTimeout(() => {
       setVisible(true);
     }, 1500);
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
   const handleOk = () => {
     // On affiche le loading
@@ -32,21 +37,23 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
     // On verifie si le nom est le prenom sont rempli
     if (inputNom.length > 3 && inputPrenom.length > 3) {
       // On ajoute le nom/prenom dans le user bdd
-      const _user: IUser = {
+      const user: IUser = {
         Nom: inputNom,
         Prenom: inputPrenom,
         newUser: false,
         pages_simulations: [],
       };
-      
-      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, _user);
+
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, user);
 
       // On supprime le loading et le modal
       setTimeout(() => {
         setConfirmLoading(false);
         setVisible(false);
       }, 2000);
-    } else setTimeout(() => setConfirmLoading(false), 2000);
+    } else {
+      setTimeout(() => setConfirmLoading(false), 2000);
+    }
   };
   return (
     <div>
@@ -54,7 +61,8 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
         title={
           <div style={{ textAlign: "center" }}>
             <h2>
-              <ExclamationCircleTwoTone translate="" /> Hey, bienvenue à toi !
+              <ExclamationCircleTwoTone translate="yes" /> Hey, bienvenue à toi
+              ! Hey, bienvenue à toi !
             </h2>
           </div>
         }
@@ -73,7 +81,10 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
         ]}
       >
         <div className="content-modal">
-          <h3>Si tu vois ce message, c'est que tu es nouveau. <span role="img">🙌</span></h3>
+          <h3>
+            Si tu vois ce message, c'est que tu es nouveau.{" "}
+            <span role="img">🙌</span>
+          </h3>
           <p>
             Avant de commencer à utiliser Master Capture, pourrais-tu me donner
             ton nom et ton prénom s'il te plaît ?
@@ -82,23 +93,25 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
             placeholder="Prenom"
             style={{ marginBottom: "10px" }}
             prefix={
-              <UserOutlined translate="" className="site-form-item-icon" />
+              <UserOutlined translate="yes" className="site-form-item-icon" />
             }
             suffix={
               <Tooltip title="Ton prénom va me servir pour te parler plus facilement sur ton Dashboard !">
                 <InfoCircleOutlined
-                  translate=""
+                  translate="yes"
                   style={{ color: "rgba(0,0,0,.45)" }}
                 />
               </Tooltip>
             }
+            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputPrenom(e.target.value)}
           />
           <Input
             placeholder="Nom"
             prefix={
-              <UserOutlined translate="" className="site-form-item-icon" />
+              <UserOutlined translate="yes" className="site-form-item-icon" />
             }
+            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputNom(e.target.value)}
           />
         </div>

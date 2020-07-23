@@ -1,73 +1,72 @@
 import React, {
   FunctionComponent,
-  useState,
-  useEffect,
   useContext,
+  useEffect,
+  useState,
 } from "react";
-import { Context, IContext } from "../../../../../Utils/context";
-import { IRechartsSimulateur } from "./props";
-import "./.css";
 import {
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
 } from "recharts";
-import * as FirebaseHelper from "../../../../../Utils/FirebaseHelper";
-import { IUser } from "../../../../Interfaces/IUser";
+import { Context, IContext } from "../../../../../Utils/context";
 import { IPage_View } from "../../../../Interfaces/User/Pages_Simulations/IPage_View";
+import "./.css";
+import { IRechartsSimulateur } from "./props";
 
 const RechartsSimulateur: FunctionComponent<IRechartsSimulateur> = (props) => {
   const monContext: IContext = useContext(Context);
   const [dataRecharts, setDataRecharts] = useState<IPage_View[]>();
   useEffect(() => {
     getDataForRecharts();
-    return () => {};
+    return () => {
+      //
+    };
   }, [props.selectedSimulateur]);
   const getDataForRecharts = () => {
-    FirebaseHelper.GetClient(monContext.Auth.get.uid).subscribe((u) => {
-      const User: IUser = u as IUser;
-      const _dataForRecharts: IPage_View[] = [];
-
-      if (props.selectedSimulateur === -1) {
-        // GET ALL SIMULATEURS STATISTIQUES
-        User.pages_simulations.forEach((simulateur) =>
-          simulateur.page_view.forEach((day) => {
-            if (_dataForRecharts.find((d) => d.date === day.date)) {
-              const d = _dataForRecharts.find(
-                (d) => d.date === day.date
-              ) as IPage_View;
-              d.nbrCaptureEmail += day.nbrCaptureEmail;
-              d.nbrSimulateurValide += day.nbrSimulateurValide;
-              d.nbrVisiteur += day.nbrVisiteur;
-            } else
-              _dataForRecharts.push({
-                date: day.date,
-                nbrVisiteur: day.nbrVisiteur,
-                nbrSimulateurValide: day.nbrSimulateurValide,
-                nbrCaptureEmail: day.nbrCaptureEmail,
-              });
-          })
-        );
-      } else {
-        // GET SIMULATEUR SELECTED
-        User.pages_simulations[props.selectedSimulateur].page_view.forEach(
-          (day) =>
-            _dataForRecharts.push({
+    const dataForRecharts: IPage_View[] = [];
+    if (props.selectedSimulateur === -1) {
+      // GET ALL SIMULATEURS STATISTIQUES
+      monContext.User.get.pages_simulations.forEach((simulateur) =>
+        simulateur.page_view.forEach((day) => {
+          if (dataForRecharts.find((d) => d.date === day.date)) {
+            const d = dataForRecharts.find(
+              // tslint:disable-next-line:no-shadowed-variable
+              (d: IPage_View) => d.date === day.date
+            ) as IPage_View;
+            d.nbrCaptureEmail += day.nbrCaptureEmail;
+            d.nbrSimulateurValide += day.nbrSimulateurValide;
+            d.nbrVisiteur += day.nbrVisiteur;
+          } else {
+            dataForRecharts.push({
               date: day.date,
-              nbrVisiteur: day.nbrVisiteur,
-              nbrSimulateurValide: day.nbrSimulateurValide,
               nbrCaptureEmail: day.nbrCaptureEmail,
-            })
-        );
-      }
-      // console.log(_dataForRecharts);
-      setDataRecharts(_dataForRecharts);
-    });
+              nbrSimulateurValide: day.nbrSimulateurValide,
+              nbrVisiteur: day.nbrVisiteur,
+            });
+          }
+        })
+      );
+    } else {
+      // GET SIMULATEUR SELECTED
+      monContext.User.get.pages_simulations[
+        props.selectedSimulateur
+      ].page_view.forEach((day) =>
+        dataForRecharts.push({
+          date: day.date,
+          nbrCaptureEmail: day.nbrCaptureEmail,
+          nbrSimulateurValide: day.nbrSimulateurValide,
+          nbrVisiteur: day.nbrVisiteur,
+        })
+      );
+    }
+    // console.log(_dataForRecharts);
+    setDataRecharts(dataForRecharts);
   };
 
   return (
@@ -79,6 +78,7 @@ const RechartsSimulateur: FunctionComponent<IRechartsSimulateur> = (props) => {
           data={dataRecharts}
           margin={{
             top: 5,
+            // tslint:disable-next-line:object-literal-sort-keys
             right: 30,
             left: 0,
             bottom: 5,
@@ -98,7 +98,7 @@ const RechartsSimulateur: FunctionComponent<IRechartsSimulateur> = (props) => {
           <Line
             type="monotone"
             dataKey="nbrSimulateurValide"
-            stroke="#82ca9d"
+            stroke="#111111"
           />
           <Line type="monotone" dataKey="nbrCaptureEmail" stroke="#82ca9d" />
         </LineChart>

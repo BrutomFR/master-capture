@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { Context, IContext } from "./Utils/context";
-import Login from "./Core/Pages/Login/Login";
+import "antd/dist/antd.css";
+import firebase from "firebase";
+import  { FunctionComponent, useEffect, useState } from "react";
+import React from "react";
 import { IUser } from "./Core/Interfaces/IUser";
 import Dashboard from "./Core/Pages/Dashboard/Dashboard";
-import firebase from "firebase";
+import Login from "./Core/Pages/Login/Login";
+import { Context, IContext } from "./Utils/context";
 import * as FirebaseHelper from "./Utils/FirebaseHelper";
-import "antd/dist/antd.css";
 const App: FunctionComponent = (props) => {
   // Auth est l'objet de firebase pour l'utilisateur connecté.
   // if uid est vide, alors personne n'est connecté
@@ -15,10 +16,6 @@ const App: FunctionComponent = (props) => {
   const [user, setUser] = React.useState<IUser>({} as IUser);
   const [sizeScreen, setSizeScreen] = useState<number>(window.innerWidth);
   const getContext: IContext = {
-    User: {
-      get: user,
-      set: setUser,
-    },
     Auth: {
       get: auth,
       set: setAuth,
@@ -26,23 +23,31 @@ const App: FunctionComponent = (props) => {
     SizeScreenUser: {
       get: sizeScreen,
       set: setSizeScreen,
-    }
+    },
+    User: {
+      get: user,
+      set: setUser,
+    },
   };
   useEffect(() => {
     // on cherche si quelqu'un est connecté
     firebase.auth().onAuthStateChanged((a) => {
       if (a) {
         setAuth(a);
-        FirebaseHelper.GetClient(a.uid).subscribe((_client) =>
-          setUser(_client as IUser)
-        );
-      } else
+        FirebaseHelper.GetClient(a.uid).subscribe((client) => {
+          console.log(client);
+          setUser(client as IUser);
+        });
+      } else {
         setAuth({
           uid: "",
         });
+      }
     });
-    return () => {};
-  },[]);
+    return () => {
+      //
+    };
+  }, []);
 
   return (
     <Context.Provider value={getContext}>

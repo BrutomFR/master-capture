@@ -1,38 +1,30 @@
-import React, {
-  FunctionComponent,
-  useState,
-  useEffect,
-  useContext,
-} from "react";
-import { Context, IContext } from "../../../../../Utils/context";
-import { ICardSimulateur } from "./props";
-import "./.css";
-import { Card, Avatar, Col, Row } from "antd";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, SettingOutlined } from "@ant-design/icons";
+import { Avatar, Card } from "antd";
+import React, { FunctionComponent, useEffect } from "react";
 import ImgLogo from "../../../../../Img/logo-bruton-blanc-300x300.png";
+import "./.css";
+import { ICardSimulateur } from "./props";
 const CardSimulateur: FunctionComponent<ICardSimulateur> = (props) => {
-  const monContext: IContext = useContext(Context);
   const { Meta } = Card;
   useEffect(() => {
-    return () => {};
+    return () => {
+      //
+    };
   }, []);
   return (
     <Card
-      style={{ width: 250, marginTop: 16 }}
+      style={{ width: 300, marginTop: 16 }}
       actions={[
-        <SettingOutlined translate="" key="setting" />,
-        <EditOutlined translate="" key="edit" />,
+        <SettingOutlined
+          translate="yes"
+          key="setting"
+          // tslint:disable-next-line:jsx-no-lambda
+          onClick={() => props.openPopup(true)}
+        />,
+        <EditOutlined translate="yes" key="edit" />,
       ]}
     >
-      <Meta
-        avatar={<Avatar src={ImgLogo} />}
-        title={props.simulateur.Nom}
-        description="This is the description"
-      />
+      <Meta avatar={<Avatar src={ImgLogo} />} title={props.simulateur.Nom} />
     </Card>
   );
 };

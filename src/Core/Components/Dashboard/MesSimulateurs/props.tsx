@@ -1,1 +1,4 @@
-export interface IMesSimulateurs {}
+// tslint:disable-next-line:no-empty-interface
+export interface IMesSimulateurs {
+  
+}
