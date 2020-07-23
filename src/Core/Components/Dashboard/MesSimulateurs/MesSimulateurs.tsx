@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Row, Switch, Tooltip } from "antd";
+import { Button, Card, Col, Row, Tooltip } from "antd";
 import React, {
   FunctionComponent,
   useContext,
@@ -12,7 +12,7 @@ import CardSimulateur from "./CardSimulateur/CardSimulateur";
 import PopupConfigSimulateur from "./PopupConfigSimulateur/PopupConfigSimulateur";
 import PopupStatistiqueSimulateur from "./PopupStatistiqueSimulateur/PopupStatistiqueSimulateur";
 import { IMesSimulateurs } from "./props";
-import RechartsSimulateur from "./RechartsSimulateur/RechartsSimulateur";
+import StatistiquesSimulateurs from "./StatistiquesSimulateurs/StatistiquesSimulateurs";
 
 const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
   const monContext: IContext = useContext(Context);
@@ -24,15 +24,12 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
     false
   ); // POPUP CONFIG OPEN
   const [selectedSimulateur, setSelectedSimulateur] = useState<number>(-1); // Index du simulateur séléctionné
-  const [switchChecked, setSwitchChecked] = useState<boolean>(true); // Séléctionne tous les simulateurs
+
   useEffect(() => {
-    selectedSimulateur !== -1
-      ? setSwitchChecked(false)
-      : setSwitchChecked(true);
     return () => {
       //
     };
-  }, [selectedSimulateur]);
+  }, []);
 
   return (
     <div className="container-mes-simulateur">
@@ -48,10 +45,11 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
           visible={statsSimulateurPopup}
           setVisible={setStatSimulateurPopup}
           simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
+          simulateurIndex={selectedSimulateur}
         />
       ) : null}
       <div className="site-card-wrapper">
-        <RechartsSimulateur selectedSimulateur={selectedSimulateur} />
+        <StatistiquesSimulateurs selectedSimulateur={selectedSimulateur} />
         <div className="container-card-simulateur">
           <Card title="Mes simulateurs:" bordered={true}>
             <Row
@@ -86,21 +84,6 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                   icon={<PlusOutlined translate="yes" />}
                 />
               </Tooltip>
-            </div>
-          </Card>
-        </div>
-        <div className="container-card-simulateur">
-          <Card title="Mes statistiques:" bordered={true}>
-            <div className="header-statistiques">
-              Tous les simulateurs:
-              <Switch
-                checked={switchChecked}
-                onChange={(e) => {
-                  // tslint:disable-next-line:jsx-no-lambda
-                  // tslint:disable-next-line:no-unused-expression
-                  e ? setSelectedSimulateur(-1) : null;
-                }}
-              />
             </div>
           </Card>
         </div>
