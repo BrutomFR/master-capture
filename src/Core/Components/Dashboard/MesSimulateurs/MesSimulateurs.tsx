@@ -10,19 +10,21 @@ import { Context, IContext } from "../../../../Utils/context";
 import "./.css";
 import CardSimulateur from "./CardSimulateur/CardSimulateur";
 import PopupConfigSimulateur from "./PopupConfigSimulateur/PopupConfigSimulateur";
+import PopupNewSimulateur from "./PopupNewSimulateur/PopupNewSimulateur";
 import PopupStatistiqueSimulateur from "./PopupStatistiqueSimulateur/PopupStatistiqueSimulateur";
 import { IMesSimulateurs } from "./props";
 import StatistiquesSimulateurs from "./StatistiquesSimulateurs/StatistiquesSimulateurs";
 
 const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
   const monContext: IContext = useContext(Context);
-
+  // POPUP CONFIG OPEN
   const [configSimulateurPopup, setConfigSimulateurPopup] = useState<boolean>(
     false
-  ); // POPUP CONFIG OPEN
+  ); // POPUP STATS OPEN
   const [statsSimulateurPopup, setStatSimulateurPopup] = useState<boolean>(
     false
-  ); // POPUP CONFIG OPEN
+  ); // POPUP NEW SIMULATEUR OPEN
+  const [newSimulateurPopup, setNewSimulateurPopup] = useState<boolean>(false);
   const [selectedSimulateur, setSelectedSimulateur] = useState<number>(-1); // Index du simulateur séléctionné
 
   useEffect(() => {
@@ -33,21 +35,27 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
 
   return (
     <div className="container-mes-simulateur">
-      {configSimulateurPopup ? (
+      {configSimulateurPopup && (
         <PopupConfigSimulateur
           visible={configSimulateurPopup}
           setVisible={setConfigSimulateurPopup}
           simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
         />
-      ) : null}
-      {statsSimulateurPopup ? (
+      )}
+      {statsSimulateurPopup && (
         <PopupStatistiqueSimulateur
           visible={statsSimulateurPopup}
           setVisible={setStatSimulateurPopup}
           simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
           simulateurIndex={selectedSimulateur}
         />
-      ) : null}
+      )}
+      {newSimulateurPopup && (
+        <PopupNewSimulateur
+          visible={newSimulateurPopup}
+          setVisible={setNewSimulateurPopup}
+        />
+      )}
       <div className="site-card-wrapper">
         <StatistiquesSimulateurs selectedSimulateur={selectedSimulateur} />
         <div className="container-card-simulateur">
@@ -78,11 +86,14 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
             </Row>
             <div className="container-button-add-simulateur">
               <Tooltip title="Ajouter un simulateur">
-                <Button
-                  size="large"
-                  shape="circle"
-                  icon={<PlusOutlined translate="yes" />}
-                />
+                
+                  <Button
+                    size="large"
+                    shape="circle"
+                    icon={<PlusOutlined translate="yes" />}
+                    onClick={() => setNewSimulateurPopup(true)}
+                  />
+
               </Tooltip>
             </div>
           </Card>

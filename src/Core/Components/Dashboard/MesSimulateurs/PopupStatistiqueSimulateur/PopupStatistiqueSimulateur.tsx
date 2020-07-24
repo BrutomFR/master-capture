@@ -55,7 +55,7 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
 
     monContext.User.get.pages_simulations[
       props.simulateurIndex
-    ].page_view.forEach((day) => {
+    ].page_view.forEach((day: any) => {
       stats.push(day);
     });
     stats.slice(Math.max(stats.length - dateSelected, 0)).forEach((d) => {

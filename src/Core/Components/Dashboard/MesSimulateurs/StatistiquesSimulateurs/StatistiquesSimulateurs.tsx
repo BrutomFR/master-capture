@@ -59,7 +59,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
 
     t.pages_simulations.forEach((simulateur) => {
       // On boucle les simulateurs du client
-      simulateur.page_view.forEach((day) => {
+      simulateur.page_view.forEach((day: IPage_View) => {
         // On boucle les jours du simulateur
         let findIfDayExist = stats.find((d) => d.date === day.date);
 
@@ -116,7 +116,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
       </Select>
       <div className="row">
         <div className="column">
-        <ChartCard
+          <ChartCard
             title={<div>Taux de conversion</div>}
             action={
               <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminées.">
@@ -143,7 +143,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           </ChartCard>
         </div>
         <div className="column">
-        <ChartCard
+          <ChartCard
             title={<div>Visiteurs</div>}
             contentHeight={60}
             action={
@@ -165,7 +165,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           </ChartCard>
         </div>
         <div className="column">
-        <ChartCard
+          <ChartCard
             title={<div>Capture d'emails</div>}
             contentHeight={60}
             action={
@@ -187,7 +187,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           </ChartCard>
         </div>
         <div className="column">
-        <ChartCard
+          <ChartCard
             title={<div>Simulateurs remplis</div>}
             contentHeight={60}
             action={

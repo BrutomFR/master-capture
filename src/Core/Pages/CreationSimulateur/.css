@@ -1,0 +1,21 @@
+.steps-action {
+  margin-top: 24px;
+}
+.ant-layout-footer {
+  background-color: white;
+}
+
+.ant-layout-header {
+  color: white;
+}
+.ant-layout-sider-children {
+  color: white;
+}
+.header-steps-simulateur {
+    background-color: #f0f2f5;
+    color: black;
+}
+.header-creation-simulateur {
+    background-color: white;
+    color: black;
+}

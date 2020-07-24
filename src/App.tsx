@@ -1,13 +1,16 @@
-import 'ant-design-pro/dist/ant-design-pro.css'; 
+import "ant-design-pro/dist/ant-design-pro.css";
 import "antd/dist/antd.css";
 import firebase from "firebase";
-import  { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { IUser } from "./Core/Interfaces/IUser";
+import CreationSimulateur from './Core/Pages/CreationSimulateur/CreationSimulateur';
 import Dashboard from "./Core/Pages/Dashboard/Dashboard";
 import Login from "./Core/Pages/Login/Login";
 import { Context, IContext } from "./Utils/context";
 import * as FirebaseHelper from "./Utils/FirebaseHelper";
+
 const App: FunctionComponent = (props) => {
   // Auth est l'objet de firebase pour l'utilisateur connecté.
   // if uid est vide, alors personne n'est connecté
@@ -52,7 +55,19 @@ const App: FunctionComponent = (props) => {
 
   return (
     <Context.Provider value={getContext}>
-      {auth.uid === "" ? <Login /> : <Dashboard />}
+      {auth.uid === "" ? (
+        <Login />
+      ) : (
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path="/simulateur/:id"
+              component={CreationSimulateur}
+            />
+            <Route path="/" component={Dashboard} />
+          </Switch>
+        </BrowserRouter>
+      )}
     </Context.Provider>
   );
 };
