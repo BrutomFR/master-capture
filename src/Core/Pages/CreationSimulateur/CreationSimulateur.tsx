@@ -37,65 +37,73 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
   const previousStep = () => setCurrentStep(currentStep - 1);
 
   useEffect(() => {
-    if (Object.keys(monContext.User.get).length !== 0)
-      monContext.User.get.pages_simulations.find(
-        (simulateur) => simulateur.Id === params.id
-      ) && setAutorisation(true);
+    if (Object.keys(monContext.User.get).length !== 0) {
+      // Evite l'erreur de chercher dans un User vide s'il n'est pas connecté
+      if (
+        monContext.User.get.pages_simulations.find((simulateur) => {
+          return simulateur.Id == params.id;
+        })
+      )
+        setAutorisation(true);
+    }
 
     return () => {
       //
     };
-  }, []);
+  }, [monContext.User]);
 
   return (
     <div>
-      {autorisation ? (
-        <Layout>
-          <Header className="header-creation-simulateur">
-            <Link to="/">
-              <Button icon={<LeftOutlined translate="yes" />} />
-            </Link>
-            Header
-          </Header>
+      <Layout>
+        <Header className="header-creation-simulateur">
+          <Link to="/">
+            <Button icon={<LeftOutlined translate="yes" />} />
+          </Link>
+          Header
+        </Header>
+        {autorisation ? (
+          <div style={{ height: "100%" }}>
+            <StepsContent
+              steps={steps}
+              nextStep={nextStep}
+              previousStep={previousStep}
+              currentStep={currentStep}
+            />
 
-          <StepsContent
-            steps={steps}
-            nextStep={nextStep}
-            previousStep={previousStep}
-            currentStep={currentStep}
-          />
-
-          <div className="steps-action">
-            {currentStep < steps.length - 1 && (
-              <Button type="primary" onClick={nextStep}>
-                Next
-              </Button>
-            )}
-            {currentStep === steps.length - 1 && (
-              <Button
-                type="primary"
-                onClick={() => message.success("Processing complete!")}
-              >
-                Done
-              </Button>
-            )}
-            {currentStep > 0 && (
-              <Button style={{ margin: "0 8px" }} onClick={previousStep}>
-                Previous
-              </Button>
-            )}
+            <div className="steps-action">
+              {currentStep < steps.length - 1 && (
+                <Button type="primary" onClick={nextStep}>
+                  Next
+                </Button>
+              )}
+              {currentStep === steps.length - 1 && (
+                <Button
+                  type="primary"
+                  onClick={() => message.success("Processing complete!")}
+                >
+                  Done
+                </Button>
+              )}
+              {currentStep > 0 && (
+                <Button style={{ margin: "0 8px" }} onClick={previousStep}>
+                  Previous
+                </Button>
+              )}
+            </div>
           </div>
-          <Footer>
-            <Steps current={currentStep}>
-              {steps.map((item) => (
-                <Step key={item.title} title={item.title} />
-              ))}
-            </Steps>
-          </Footer>
-        </Layout>
-      ) : (
-        <div>Connectez vous pour accéder au simulateur.</div>
-      )}
+        ) : (
+          <div style={{ height: "100%" }}>
+            Vous n'avez pas accès à ce simulateur.
+          </div>
+        )}
+        <Footer>
+          <Steps current={currentStep}>
+            {steps.map((item) => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
+        </Footer>
+      </Layout>
     </div>
   );
 };

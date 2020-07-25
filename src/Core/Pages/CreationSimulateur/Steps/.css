@@ -1,5 +1,9 @@
 .steps-action {
-    position: fixed;
-    bottom: 160px;
-    right: 80px;
+  position: fixed;
+  bottom: 160px;
+  right: 80px;
+}
+.menu-configuratoin-creation-simulateur {
+  width: 300px;
+  background-color: #1890ff;
 }

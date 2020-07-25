@@ -7,9 +7,12 @@ import React, {
 } from "react";
 import "./.css";
 import EtapesDuSimulateur from "./EtapesDuSimulateur/EtapesDuSimulateur";
+import LeftMenuConfigSimulateurCapture from "./LeftMenuConfigSimulateurCapture/LeftMenuConfigSimulateurCapture";
+import LeftMenuConfigSimulateurEtapes from "./LeftMenuConfigSimulateurEtapes/LeftMenuConfigSimulateurEtapes";
+import LeftMenuConfigSimulateurTarifs from "./LeftMenuConfigSimulateurTarifs/LeftMenuConfigSimulateurTarifs";
 // import { Context, IContext } from "../Utils/context";
 import { IStepsContent } from "./props";
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 const StepsContent: FunctionComponent<IStepsContent> = (props) => {
   // const monContext: IContext = useContext(Context);
 
@@ -21,9 +24,16 @@ const StepsContent: FunctionComponent<IStepsContent> = (props) => {
 
   return (
     <Layout>
-      <Sider>Sider</Sider>
+      {props.currentStep === 0 ? ( // SI C'EST PAGE DE CAPTURE
+        <LeftMenuConfigSimulateurCapture />
+      ) : props.currentStep === 1 ? ( // SI C'EST PAGE DES ETAPES DU SIMULATEUR
+        <LeftMenuConfigSimulateurEtapes />
+      ) : (
+        props.currentStep === 2 && <LeftMenuConfigSimulateurTarifs /> // SI C'EST PAGE DES TARIFS
+      )}
+
       <Content>
-        {props.currentStep === 0 ? ( // SI C'EST PAGE DE TARIF
+        {props.currentStep === 0 ? ( // SI C'EST PAGE DE CAPTURE
           <div>
             <div className="steps-content">
               {props.steps[props.currentStep].content}
