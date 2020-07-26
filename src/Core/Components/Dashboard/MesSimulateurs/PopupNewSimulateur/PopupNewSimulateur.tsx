@@ -35,6 +35,9 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
       pixel_facebook: "",
       pixel_google: "",
       devise: devise,
+      design_configuration: {
+        background_color: "#0582ca",
+      },
     };
     monContext.User.get.pages_simulations.push(simulateur);
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);

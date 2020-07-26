@@ -1,6 +1,7 @@
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
 
-export interface IEtapesDuSimulateur {
+// tslint:disable-next-line:no-empty-interface
+export interface ICapturePage {
   backgroundColorHeader: string;
   currentEtapeOfSimulateur: number;
   setCurrentEtapeOfSimulateur: React.Dispatch<React.SetStateAction<number>>;

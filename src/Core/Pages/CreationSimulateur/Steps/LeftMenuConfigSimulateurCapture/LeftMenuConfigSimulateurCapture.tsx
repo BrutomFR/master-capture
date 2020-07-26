@@ -1,5 +1,5 @@
 // import { Context, IContext } from "../Utils/context";
-import { Layout } from "antd";
+import { Input, Layout } from "antd";
 import React, {
   FunctionComponent,
   useEffect,
@@ -20,8 +20,18 @@ const LeftMenuConfigSimulateurCapture: FunctionComponent<ILeftMenuConfigSimulate
   }, []);
 
   return (
-    <Sider width="300px"className="menu-configuratoin-creation-simulateur">
-      <div>Configuration de la page de capture</div>
+    <Sider width="300px" className="menu-configuratoin-creation-simulateur">
+      <div>
+        <div>
+          <h1 style={{ color: "white" }}>Configuration du simulateur</h1>
+        </div>
+        <p>Couleur du menu:</p>
+        <Input
+          defaultValue={props.backgroundColorHeader}
+          onChange={(e) => props.setBackgroundColorHeader(e.target.value)}
+        />
+        
+      </div>
     </Sider>
   );
 };

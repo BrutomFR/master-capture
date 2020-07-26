@@ -1,3 +1,4 @@
+import { IDesign_Configuration } from './Pages_Simulations/Design_Configuration/IDesign_Configuration';
 import { IEtapes_View } from "./Pages_Simulations/IEtapes_View";
 import { IPage_View } from "./Pages_Simulations/IPage_View";
 import { IProspects } from "./Pages_Simulations/IProspects";
@@ -12,4 +13,5 @@ export default interface IPages_Simulations {
   pixel_facebook: string;
   pixel_google: string;
   devise: string;
+  design_configuration: IDesign_Configuration;
 }
