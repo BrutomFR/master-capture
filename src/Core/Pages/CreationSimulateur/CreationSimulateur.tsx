@@ -64,6 +64,7 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
         {autorisation ? (
           <div style={{ height: "100%" }}>
             <StepsContent
+              simulateurId={params.id}
               steps={steps}
               nextStep={nextStep}
               previousStep={previousStep}

@@ -4,6 +4,7 @@ export interface IStepsContent {
   nextStep: VoidFunction;
   previousStep: VoidFunction;
   currentStep: number;
+  simulateurId?: number;
 }
 export interface Step {
   title: string;
