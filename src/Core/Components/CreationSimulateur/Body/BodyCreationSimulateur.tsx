@@ -7,16 +7,17 @@ import React, {
   useState,
 } from "react";
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
+import IPages_Simulations from "src/Core/Interfaces/User/IPages_Simulations";
 import { Context, IContext } from "src/Utils/context";
 import "./.css";
-import CapturePage from "./EtapesDuSimulateur/CapturePage/CapturePage";
-import EtapesDuSimulateur from "./EtapesDuSimulateur/EtapesDuSimulateur";
-import LeftMenuConfigSimulateurCapture from "./LeftMenuConfigSimulateurCapture/LeftMenuConfigSimulateurCapture";
-import LeftMenuConfigSimulateurEtapes from "./LeftMenuConfigSimulateurEtapes/LeftMenuConfigSimulateurEtapes";
-import LeftMenuConfigSimulateurTarifs from "./LeftMenuConfigSimulateurTarifs/LeftMenuConfigSimulateurTarifs";
-import { IStepsContent } from "./props";
+import MenuConfigPalier from "./MenuConfigPalier/MenuConfigPalier";
+import PalierCapture from "./PalierCapture/PalierCapture";
+import PalierEtapes from "./PalierEtapes/PalierEtapes";
+import { IBodyCreationSimulateur } from "./props";
 const { Content } = Layout;
-const StepsContent: FunctionComponent<IStepsContent> = (props) => {
+const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
+  props
+) => {
   const monContext: IContext = useContext(Context);
   const [backgroundColorHeader, setBackgroundColorHeader] = useState<string>(
     "#0582ca"
@@ -27,7 +28,16 @@ const StepsContent: FunctionComponent<IStepsContent> = (props) => {
   const [currentEtapeOfSimulateur, setCurrentEtapeOfSimulateur] = useState<
     number
   >(0);
+  const [etapeSelected, setEtapeSelected] = useState<number>(0);
+  const [simulateurSelected, setSimulateurSelected] = useState<
+    IPages_Simulations
+  >();
   useEffect(() => {
+    setSimulateurSelected(
+      monContext.User.get.pages_simulations.find(
+        (simu) => simu.Id == props.simulateurId
+      )
+    );
     let etapes: IEtapeDuSimulateur[] = [];
     monContext.User.get.pages_simulations
       .find((simu) => simu.Id == props.simulateurId)
@@ -40,43 +50,62 @@ const StepsContent: FunctionComponent<IStepsContent> = (props) => {
     return () => {
       //
     };
-  }, []);
+  }, [monContext.User.get]);
   const onChangeEtape = (currentStep: number) =>
     setCurrentEtapeOfSimulateur(currentStep);
   return (
     <Layout>
-      {props.currentStep === 0 ? ( // SI C'EST PAGE DE CAPTURE
-        <LeftMenuConfigSimulateurCapture
+      {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
+        <MenuConfigPalier
           backgroundColorHeader={backgroundColorHeader}
           setBackgroundColorHeader={setBackgroundColorHeader}
+          palierSelected={0}
+          simulateurSelected={simulateurSelected}
         />
-      ) : props.currentStep === 1 ? ( // SI C'EST PAGE DES ETAPES DU SIMULATEUR
-        <LeftMenuConfigSimulateurEtapes />
+      ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
+        <MenuConfigPalier
+          backgroundColorHeader={backgroundColorHeader}
+          setBackgroundColorHeader={setBackgroundColorHeader}
+          etapeConfigSelected={simulateurSelected?.etapes_view[currentEtapeOfSimulateur]}
+          palierSelected={1}
+        />
       ) : (
-        props.currentStep === 2 && <LeftMenuConfigSimulateurTarifs /> // SI C'EST PAGE DES TARIFS
+        props.currentStep === 2 && (
+          <MenuConfigPalier
+            backgroundColorHeader={backgroundColorHeader}
+            setBackgroundColorHeader={setBackgroundColorHeader}
+            palierSelected={2}
+          />
+        ) // SI C'EST PALIER DES TARIFS
       )}
 
       <Content>
-        {props.currentStep === 0 ? ( // SI C'EST PAGE DE CAPTURE
-          <CapturePage
+        {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
+          <PalierCapture
             backgroundColorHeader={backgroundColorHeader}
             etapesDuSimulateur={etapesDuSimulateur}
             setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
             setEtapesDuSimulateur={setEtapesDuSimulateur}
             currentEtapeOfSimulateur={currentEtapeOfSimulateur}
             onChangeEtape={onChangeEtape}
+            etapeSelected={etapeSelected}
+            setEtapeSelected={setEtapeSelected}
+            simulateurSelected={simulateurSelected}
           />
-        ) : props.currentStep === 1 ? ( // SI C'EST PAGE DES ETAPES DU SIMULATEUR
-          <EtapesDuSimulateur
+        ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
+          <PalierEtapes
             backgroundColorHeader={backgroundColorHeader}
             etapesDuSimulateur={etapesDuSimulateur}
             setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
             setEtapesDuSimulateur={setEtapesDuSimulateur}
             currentEtapeOfSimulateur={currentEtapeOfSimulateur}
             onChangeEtape={onChangeEtape}
+            etapeSelected={etapeSelected}
+            setEtapeSelected={setEtapeSelected}
+            simulateurSelected={simulateurSelected}
           />
         ) : (
-          props.currentStep === 2 && ( // SI C'EST PAGE DES TARIFS
+          props.currentStep === 2 && ( // SI C'EST PALIER DES TARIFS
             <div className="steps-content">
               {props.steps[props.currentStep].content}
             </div>
@@ -87,4 +116,4 @@ const StepsContent: FunctionComponent<IStepsContent> = (props) => {
   );
 };
 
-export default StepsContent;
+export default BodyCreationSimulateur;

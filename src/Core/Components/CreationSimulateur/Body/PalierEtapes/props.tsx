@@ -1,7 +1,7 @@
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
+import IPages_Simulations from 'src/Core/Interfaces/User/IPages_Simulations';
 
-// tslint:disable-next-line:no-empty-interface
-export interface ICapturePage {
+export interface IPalierEtapes {
   backgroundColorHeader: string;
   currentEtapeOfSimulateur: number;
   setCurrentEtapeOfSimulateur: React.Dispatch<React.SetStateAction<number>>;
@@ -10,4 +10,7 @@ export interface ICapturePage {
     React.SetStateAction<IEtapeDuSimulateur[]>
   >;
   onChangeEtape: (currentStep: number) => void;
+  etapeSelected: number;
+  setEtapeSelected: React.Dispatch<React.SetStateAction<number>>;
+  simulateurSelected?: IPages_Simulations;
 }

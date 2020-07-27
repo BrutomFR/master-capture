@@ -1,16 +1,17 @@
-import { Steps } from "antd";
+import { Button, Steps } from "antd";
 import React, {
   FunctionComponent,
+  useContext,
   useEffect,
   useState,
-  // useContext,
 } from "react";
+import { Context, IContext } from "src/Utils/context";
+import * as FirebaseHelper from "src/Utils/FirebaseHelper";
 import "./.css";
-// import { Context, IContext } from "../Utils/context";
 import { IHeaderSimulateur } from "./props";
 const { Step } = Steps;
 const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
-  // const monContext: IContext = useContext(Context);
+  const monContext: IContext = useContext(Context);
   const [classNameStep, setClassNameStep] = useState<string>("");
   const [typeStep, setTypeStep] = useState<string>("default");
 
@@ -21,7 +22,18 @@ const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
       //
     };
   }, []);
-
+  const addEtapeOnSimulateur = () => {
+    props.simulateurSelected?.etapes_view.push({
+      information: {
+        description: "",
+        titre: "",
+      },
+      question: "",
+      reponses: [],
+      titre_progressbar: "",
+    });
+    FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+  };
   return (
     <div
       style={{ backgroundColor: props.backgroundColorHeader }}
@@ -35,10 +47,17 @@ const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
         onChange={props.onChangeEtape}
         className={classNameStep}
       >
-        {props.etapesDuSimulateur.map((s, i) => (
-          <Step key={i} title={<div>{s.title} </div>} status="finish" />
+        {props.simulateurSelected?.etapes_view.map((s, i) => (
+          <Step
+            key={i}
+            title={<div>{s.titre_progressbar} </div>}
+            status="finish"
+          />
         ))}
       </Steps>
+      {props.isEtapesStep && (
+        <Button onClick={addEtapeOnSimulateur}>Ajouter une étape</Button>
+      )}
     </div>
   );
 };

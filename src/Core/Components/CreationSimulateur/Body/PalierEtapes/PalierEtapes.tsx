@@ -4,15 +4,16 @@ import React, {
   // useState,
   // useContext,
 } from "react";
-import HeaderSimulateur from "src/Core/Components/Dashboard/MesSimulateurs/CreationSimulateurDesign/Header/HeaderSimulateur";
+import HeaderSimulateur from "../SimulateurLive/Header/HeaderSimulateur";
 import "./.css";
 // import { Context, IContext } from "../Utils/context";
-import { IEtapesDuSimulateur } from "./props";
+import { IPalierEtapes } from "./props";
 
-const EtapesDuSimulateur: FunctionComponent<IEtapesDuSimulateur> = (props) => {
+const PalierEtapes: FunctionComponent<IPalierEtapes> = (props) => {
   // const monContext: IContext = useContext(Context);
 
   useEffect(() => {
+    // console.log(props.etapesDuSimulateur[props.currentEtapeOfSimulateur].title);
     return () => {
       //
     };
@@ -23,15 +24,18 @@ const EtapesDuSimulateur: FunctionComponent<IEtapesDuSimulateur> = (props) => {
       <HeaderSimulateur
         currentEtapeOfSimulateur={props.currentEtapeOfSimulateur}
         backgroundColorHeader={props.backgroundColorHeader}
-        setCurrentEtapeOfSimulateur={props.setCurrentEtapeOfSimulateur}
-        etapesDuSimulateur={props.etapesDuSimulateur}
-        setEtapesDuSimulateur={props.setEtapesDuSimulateur}
         onChangeEtape={props.onChangeEtape}
         isEtapesStep={true}
+        simulateurSelected={props.simulateurSelected}
       />
-      <div>TEST</div>
+      <div>
+        {
+          props.simulateurSelected?.etapes_view[props.currentEtapeOfSimulateur]
+            .question
+        }
+      </div>
     </div>
   );
 };
 
-export default EtapesDuSimulateur;
+export default PalierEtapes;

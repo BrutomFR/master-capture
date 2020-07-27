@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-empty-interface
-export interface IStepsContent {
+export interface IBodyCreationSimulateur {
   steps: Step[];
   nextStep: VoidFunction;
   previousStep: VoidFunction;

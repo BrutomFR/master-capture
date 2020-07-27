@@ -1,19 +1,17 @@
-import { LeftOutlined } from "@ant-design/icons";
-import { Button, Layout, message, Steps } from "antd";
+import { Button, Layout, message } from "antd";
 import React, {
   FunctionComponent,
   useContext,
   useEffect,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
+import BodyCreationSimulateur from "src/Core/Components/CreationSimulateur/Body/BodyCreationSimulateur";
+import FooterCreationSimulateur from "src/Core/Components/CreationSimulateur/Footer/FooterCreationSimulateur";
+import HeaderSimulationCreation from "src/Core/Components/CreationSimulateur/Header/HeaderSimulationCreation";
 import { Context, IContext } from "src/Utils/context";
 import "./.css";
 import { ICreationSimulateur, IPropsParams } from "./props";
-import StepsContent from "./Steps/StepsContent";
 
-const { Header, Footer } = Layout;
-const { Step } = Steps;
 const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
   const monContext: IContext = useContext(Context);
   const [autorisation, setAutorisation] = useState<boolean>(false);
@@ -55,15 +53,10 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
   return (
     <div>
       <Layout>
-        <Header className="header-creation-simulateur">
-          <Link to="/">
-            <Button icon={<LeftOutlined translate="yes" />} />
-          </Link>
-          Header
-        </Header>
+        <HeaderSimulationCreation />
         {autorisation ? (
           <div style={{ height: "100%" }}>
-            <StepsContent
+            <BodyCreationSimulateur
               simulateurId={params.id}
               steps={steps}
               nextStep={nextStep}
@@ -97,13 +90,7 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
             Vous n'avez pas accès à ce simulateur.
           </div>
         )}
-        <Footer>
-          <Steps current={currentStep}>
-            {steps.map((item) => (
-              <Step key={item.title} title={item.title} />
-            ))}
-          </Steps>
-        </Footer>
+        <FooterCreationSimulateur currentStep={currentStep} steps={steps} />
       </Layout>
     </div>
   );

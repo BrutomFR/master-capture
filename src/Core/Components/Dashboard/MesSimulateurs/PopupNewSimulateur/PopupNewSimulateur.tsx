@@ -29,7 +29,12 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
     let simulateur: IPages_Simulations = {
       Nom: inputNomSimulateur,
       Id: Date.now(),
-      etapes_view: [],
+      etapes_view: [{
+        question: "Question",
+        titre_progressbar: "Titre Etape",
+        reponses: [], 
+        
+      }],
       page_view: [],
       prospects: [],
       pixel_facebook: "",
@@ -38,6 +43,12 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
       design_configuration: {
         background_color: "#0582ca",
       },
+      etape_capture: {
+        titre: "Titre de votre page",
+        texte_accroche: "Text d'accroche",
+        email_capture: "Votre email",
+        prenom: "Votre prenom",
+      }
     };
     monContext.User.get.pages_simulations.push(simulateur);
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
