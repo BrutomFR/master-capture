@@ -4,18 +4,18 @@ import "firebase/firestore";
 import { Observable } from "rxjs";
 import { IUser } from "../Core/Interfaces/IUser";
 // INITIALIZE
-export default firebase.initializeApp({
-  apiKey: "AIzaSyBcz77gFm01_RYScYnvUCKeQjHNii037nc",
-  authDomain: "project-simulation-a7c4e.firebaseapp.com",
-  databaseURL: "https://project-simulation-a7c4e.firebaseio.com",
-  projectId: "project-simulation-a7c4e",
-  storageBucket: "project-simulation-a7c4e.appspot.com",
-  // tslint:disable-next-line:object-literal-sort-keys
-  messagingSenderId: "825066149119",
-  appId: "1:825066149119:web:7efa33502ba8eade24a8ca",
-  measurementId: "G-K6MP6XH8B7",
-});
-// firebase.initializeApp(config);
+export default firebase
+  .initializeApp({
+    apiKey: "AIzaSyCZZtKGf_nW4bJ_Wor2VCX71ee-LVecAnE",
+    authDomain: "master-capture.firebaseapp.com",
+    databaseURL: "https://master-capture.firebaseio.com",
+    projectId: "master-capture",
+    storageBucket: "master-capture.appspot.com",
+    messagingSenderId: "493034871634",
+    appId: "1:493034871634:web:3546e8a2c0741b1779b88b",
+    measurementId: "G-L78QVCSWW9",
+  })
+  .analytics();
 
 export const db = firebase.firestore();
 

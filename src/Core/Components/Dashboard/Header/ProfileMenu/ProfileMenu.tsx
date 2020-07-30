@@ -52,7 +52,7 @@ const ProfileMenu: FunctionComponent<IProfileMenu> = (props) => {
             }}
             size="large"
           >
-            {monContext.User.get.Prenom}
+            {monContext.User.get != undefined && monContext.User.get.Prenom}
           </Avatar>
         </Popover>
       </div>

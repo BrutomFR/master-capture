@@ -15,7 +15,7 @@ const MenuConfigPalier: FunctionComponent<IMenuConfigPalier> = (props) => {
   }, []);
   const changeTitreCapture = (e: React.ChangeEvent<HTMLInputElement>) => {
     // props.simulateurSelected?.etape_capture.titre
-    let simulateur = monContext.User.get.pages_simulations.find(
+    let simulateur = monContext.User.get.simulateurs.find(
       (s) => s.Id === props.simulateurSelected?.Id
     );
     if (simulateur) {

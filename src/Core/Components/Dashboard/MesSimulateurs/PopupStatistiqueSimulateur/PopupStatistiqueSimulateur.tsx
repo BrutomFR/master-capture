@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { IDataGraphique } from "src/Core/Interfaces/Others/IDataGraphique";
-import { IPage_View } from "src/Core/Interfaces/User/Pages_Simulations/IPage_View";
+import { IStatistiquesSimulateur } from "src/Core/Interfaces/User/Pages_Simulations/IStatistiquesSimulateur";
 import { Context, IContext } from "src/Utils/context";
 import "./.css";
 import { IPopupStatistiqueSimulateur } from "./props";
@@ -20,7 +20,7 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
 ) => {
   const monContext: IContext = useContext(Context);
   const [dateSelected, setDateSelected] = useState<number>(30);
-  const [statistiques, setStatistiques] = useState<IPage_View[]>([]); // All stats
+  const [statistiques, setStatistiques] = useState<IStatistiquesSimulateur[]>([]); // All stats
   const [visiteurs, setVisiteur] = useState<number>(0);
   const [emails, setEmails] = useState<number>(0);
   const [simulateursValide, setSimulateursValide] = useState<number>(0);
@@ -48,14 +48,14 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
     let mails = 0;
     let simulators = 0;
 
-    let stats: IPage_View[] = [];
+    let stats: IStatistiquesSimulateur[] = [];
     let visitorsGraphique: IDataGraphique[] = [];
     let mailsGraphique: IDataGraphique[] = [];
     let simulatorsValideGraphique: IDataGraphique[] = [];
 
-    monContext.User.get.pages_simulations[
+    monContext.User.get.simulateurs[
       props.simulateurIndex
-    ].page_view.forEach((day: any) => {
+    ].statistiques_simulateurs.forEach((day: any) => {
       stats.push(day);
     });
     stats.slice(Math.max(stats.length - dateSelected, 0)).forEach((d) => {

@@ -1,15 +1,15 @@
 import { IDesign_Configuration } from './Pages_Simulations/Design_Configuration/IDesign_Configuration';
 import IEtape_Capture from './Pages_Simulations/Etape_Capture/IEtape_Capture';
 import { IEtapes_View } from "./Pages_Simulations/IEtapes_View";
-import { IPage_View } from "./Pages_Simulations/IPage_View";
 import { IProspects } from "./Pages_Simulations/IProspects";
+import { IStatistiquesSimulateur } from "./Pages_Simulations/IStatistiquesSimulateur";
 
 // tslint:disable-next-line:class-name
-export default interface IPages_Simulations {
+export default interface ISimulateur {
   Nom: string;
   Id: number;
   etapes_view: IEtapes_View[];
-  page_view: IPage_View[];
+  statistiques_simulateurs: IStatistiquesSimulateur[];
   prospects: IProspects[];
   pixel_facebook: string;
   pixel_google: string;

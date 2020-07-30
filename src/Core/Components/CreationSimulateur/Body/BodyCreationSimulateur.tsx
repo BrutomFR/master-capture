@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
-import IPages_Simulations from "src/Core/Interfaces/User/IPages_Simulations";
+import IPages_Simulations from "src/Core/Interfaces/User/ISimulateur";
 import { Context, IContext } from "src/Utils/context";
 import "./.css";
 import MenuConfigPalier from "./MenuConfigPalier/MenuConfigPalier";
@@ -34,12 +34,12 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
   >();
   useEffect(() => {
     setSimulateurSelected(
-      monContext.User.get.pages_simulations.find(
+      monContext.User.get.simulateurs.find(
         (simu) => simu.Id == props.simulateurId
       )
     );
     let etapes: IEtapeDuSimulateur[] = [];
-    monContext.User.get.pages_simulations
+    monContext.User.get.simulateurs
       .find((simu) => simu.Id == props.simulateurId)
       ?.etapes_view.forEach((etape) => {
         etapes.push({

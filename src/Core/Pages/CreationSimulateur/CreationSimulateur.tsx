@@ -38,7 +38,7 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
     if (Object.keys(monContext.User.get).length !== 0) {
       // Evite l'erreur de chercher dans un User vide s'il n'est pas connecté
       if (
-        monContext.User.get.pages_simulations.find((simulateur) => {
+        monContext.User.get.simulateurs.find((simulateur) => {
           return simulateur.Id == params.id;
         })
       )

@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import IPages_Simulations from "src/Core/Interfaces/User/IPages_Simulations";
+import IPages_Simulations from "src/Core/Interfaces/User/ISimulateur";
 import { Context, IContext } from "src/Utils/context";
 import * as FirebaseHelper from "src/Utils/FirebaseHelper";
 import { IPopupNewSimulateur } from "./props";
@@ -35,7 +35,7 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
         reponses: [], 
         
       }],
-      page_view: [],
+      statistiques_simulateurs: [],
       prospects: [],
       pixel_facebook: "",
       pixel_google: "",
@@ -50,7 +50,7 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
         prenom: "Votre prenom",
       }
     };
-    monContext.User.get.pages_simulations.push(simulateur);
+    monContext.User.get.simulateurs.push(simulateur);
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     setTimeout(() => {
       setConfirmLoading(false);

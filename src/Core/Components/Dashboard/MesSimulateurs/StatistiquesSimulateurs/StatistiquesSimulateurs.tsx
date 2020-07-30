@@ -11,7 +11,7 @@ import React, {
 import { IUser } from "src/Core/Interfaces/IUser";
 import { IDataGraphique } from "src/Core/Interfaces/Others/IDataGraphique";
 import { Context, IContext } from "../../../../../Utils/context";
-import { IPage_View } from "../../../../Interfaces/User/Pages_Simulations/IPage_View";
+import { IStatistiquesSimulateur } from "../../../../Interfaces/User/Pages_Simulations/IStatistiquesSimulateur";
 import "./.css";
 import { IStatistiquesSimulateurs } from "./props";
 const { Option } = Select;
@@ -21,7 +21,9 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
 ) => {
   const monContext: IContext = useContext(Context);
   const [dateSelected, setDateSelected] = useState<number>(30);
-  const [statistiques, setStatistiques] = useState<IPage_View[]>([]); // All stats
+  const [statistiques, setStatistiques] = useState<IStatistiquesSimulateur[]>(
+    []
+  ); // All stats
   // STATS DES JOURS SELECTIONNES
   const [visiteurs, setVisiteurs] = useState<number>(0); // nbr de visiteurs du/des simulateurs
   const [emails, setEmails] = useState<number>(0); // nbr d'email capturés du/des simulateurs
@@ -46,34 +48,36 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
     "/" +
     new Date().getFullYear();
   const getStatsAllSimulateurs = () => {
-    let stats: IPage_View[] = [];
+    let stats: IStatistiquesSimulateur[] = [];
     let visitorsGraphique: IDataGraphique[] = [];
     let mailsGraphique: IDataGraphique[] = [];
     let simulatorsValideGraphique: IDataGraphique[] = [];
 
     let visitors = 0;
     let mails = 0;
-    let simulators = 0;
+    let simulators = 0; 
 
     const t: IUser = JSON.parse(JSON.stringify(monContext.User.get));
 
-    t.pages_simulations.forEach((simulateur) => {
+    t.simulateurs.forEach((simulateur) => {
       // On boucle les simulateurs du client
-      simulateur.page_view.forEach((day: IPage_View) => {
-        // On boucle les jours du simulateur
-        let findIfDayExist = stats.find((d) => d.date === day.date);
+      simulateur.statistiques_simulateurs.forEach(
+        (day: IStatistiquesSimulateur) => {
+          // On boucle les jours du simulateur
+          let findIfDayExist = stats.find((d) => d.date === day.date);
 
-        if (findIfDayExist != null) {
-          // Une date existe déjà
-          // On additionne la journée
-          findIfDayExist.nbrCaptureEmail += day.nbrCaptureEmail;
-          findIfDayExist.nbrSimulateurValide += day.nbrSimulateurValide;
-          findIfDayExist.nbrVisiteur += day.nbrVisiteur;
-        } else {
-          // Si elle n'existe pas on ajoute la date
-          stats.push(day);
+          if (findIfDayExist != null) {
+            // Une date existe déjà
+            // On additionne la journée
+            findIfDayExist.nbrCaptureEmail += day.nbrCaptureEmail;
+            findIfDayExist.nbrSimulateurValide += day.nbrSimulateurValide;
+            findIfDayExist.nbrVisiteur += day.nbrVisiteur;
+          } else {
+            // Si elle n'existe pas on ajoute la date
+            stats.push(day);
+          }
         }
-      });
+      );
     });
     stats.slice(Math.max(stats.length - dateSelected, 0)).forEach((d) => {
       visitorsGraphique.push({

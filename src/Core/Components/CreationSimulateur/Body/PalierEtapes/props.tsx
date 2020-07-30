@@ -1,5 +1,5 @@
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
-import IPages_Simulations from 'src/Core/Interfaces/User/IPages_Simulations';
+import IPages_Simulations from 'src/Core/Interfaces/User/ISimulateur';
 
 export interface IPalierEtapes {
   backgroundColorHeader: string;

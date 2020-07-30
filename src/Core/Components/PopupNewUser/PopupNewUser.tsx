@@ -41,7 +41,7 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
         Nom: inputNom,
         Prenom: inputPrenom,
         newUser: false,
-        pages_simulations: [],
+        simulateurs: [],
       };
 
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, user);
@@ -62,7 +62,7 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
           <div style={{ textAlign: "center" }}>
             <h2>
               <ExclamationCircleTwoTone translate="yes" /> Hey, bienvenue à toi
-              ! Hey, bienvenue à toi !
+              !
             </h2>
           </div>
         }

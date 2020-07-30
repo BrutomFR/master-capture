@@ -31,7 +31,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
   const toggle = () => setCollapsed(!collapsed);
   return (
     <div>
-      {monContext.User.get.newUser && <PopupNewUser />}
+      {monContext.User.get && <PopupNewUser />}
       <Layout>
         {monContext.SizeScreenUser.get < 500 ? (
           <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>
@@ -64,7 +64,6 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
               <Col span={8}>
                 <h3>Bienvenue {monContext.User.get.Prenom} !</h3>
               </Col>
-              {/* tslint:disable-next-line:jsx-self-close */}
               <Col span={8}></Col>
               <Col span={8} className="profile-menu">
                 <ProfileMenu />

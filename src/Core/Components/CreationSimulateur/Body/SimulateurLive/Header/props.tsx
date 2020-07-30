@@ -1,4 +1,4 @@
-import IPages_Simulations from "src/Core/Interfaces/User/IPages_Simulations";
+import IPages_Simulations from "src/Core/Interfaces/User/ISimulateur";
 
 // tslint:disable-next-line:no-empty-interface
 export interface IHeaderSimulateur {

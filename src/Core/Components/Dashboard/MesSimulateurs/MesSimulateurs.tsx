@@ -39,14 +39,14 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
         <PopupConfigSimulateur
           visible={configSimulateurPopup}
           setVisible={setConfigSimulateurPopup}
-          simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
+          simulateur={monContext.User.get.simulateurs[selectedSimulateur]}
         />
       )}
       {statsSimulateurPopup && (
         <PopupStatistiqueSimulateur
           visible={statsSimulateurPopup}
           setVisible={setStatSimulateurPopup}
-          simulateur={monContext.User.get.pages_simulations[selectedSimulateur]}
+          simulateur={monContext.User.get.simulateurs[selectedSimulateur]}
           simulateurIndex={selectedSimulateur}
         />
       )}
@@ -67,7 +67,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                 xs: 8,
               }}
             >
-              {monContext.User.get.pages_simulations.map((value, i) => (
+              {monContext.User.get.simulateurs.map((value, i) => (
                 <Col key={i}>
                   <div
                     onClick={() => {
@@ -86,14 +86,12 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
             </Row>
             <div className="container-button-add-simulateur">
               <Tooltip title="Ajouter un simulateur">
-                
-                  <Button
-                    size="large"
-                    shape="circle"
-                    icon={<PlusOutlined translate="yes" />}
-                    onClick={() => setNewSimulateurPopup(true)}
-                  />
-
+                <Button
+                  size="large"
+                  shape="circle"
+                  icon={<PlusOutlined translate="yes" />}
+                  onClick={() => setNewSimulateurPopup(true)}
+                />
               </Tooltip>
             </div>
           </Card>

@@ -1,4 +1,4 @@
-import IPages_Simulations from "../../../../Interfaces/User/IPages_Simulations";
+import IPages_Simulations from "../../../../Interfaces/User/ISimulateur";
 
 export interface ICardSimulateur {
   simulateur: IPages_Simulations;

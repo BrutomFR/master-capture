@@ -1,4 +1,4 @@
-import IPages_Simulations from 'src/Core/Interfaces/User/IPages_Simulations';
+import IPages_Simulations from 'src/Core/Interfaces/User/ISimulateur';
 import { IEtapes_View } from "src/Core/Interfaces/User/Pages_Simulations/IEtapes_View";
 
 export interface IMenuConfigPalier {
