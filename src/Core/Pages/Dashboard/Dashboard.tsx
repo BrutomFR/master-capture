@@ -31,7 +31,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
   const toggle = () => setCollapsed(!collapsed);
   return (
     <div>
-      {monContext.User.get && <PopupNewUser />}
+      {monContext.User.get.newUser && <PopupNewUser />}
       <Layout>
         {monContext.SizeScreenUser.get < 500 ? (
           <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>

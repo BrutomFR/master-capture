@@ -66,21 +66,26 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
 
             <div className="steps-action">
               {currentStep < steps.length - 1 && (
-                <Button type="primary" onClick={nextStep}>
-                  Next
+                <Button size="large" type="primary" onClick={nextStep}>
+                  SUIVANT
                 </Button>
               )}
               {currentStep === steps.length - 1 && (
                 <Button
+                  size="large"
                   type="primary"
                   onClick={() => message.success("Processing complete!")}
                 >
-                  Done
+                  TERMINER
                 </Button>
               )}
               {currentStep > 0 && (
-                <Button style={{ margin: "0 8px" }} onClick={previousStep}>
-                  Previous
+                <Button
+                  size="large"
+                  style={{ margin: "0 8px" }}
+                  onClick={previousStep}
+                >
+                  PRÉCÉDENT
                 </Button>
               )}
             </div>

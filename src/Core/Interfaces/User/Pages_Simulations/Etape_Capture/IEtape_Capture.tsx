@@ -3,4 +3,5 @@ export default interface IEtape_Capture {
   texte_accroche: string;
   email_capture: string;
   prenom: string;
+  button_valide: string;
 }

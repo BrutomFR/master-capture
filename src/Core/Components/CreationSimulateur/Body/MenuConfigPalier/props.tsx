@@ -6,5 +6,5 @@ export interface IMenuConfigPalier {
   backgroundColorHeader: string;
   etapeConfigSelected?: IEtapes_View;
   palierSelected: number;
-  simulateurSelected?: IPages_Simulations;
+  simulateurSelected: IPages_Simulations;
 }

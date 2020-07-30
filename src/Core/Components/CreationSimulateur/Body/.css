@@ -1,10 +1,6 @@
 .steps-action {
   position: fixed;
-  bottom: 160px;
+  bottom: 80px;
   right: 80px;
-}
-.menu-configuratoin-creation-simulateur {
-  width: 300px;
-  background-color: #001529;
-  color: white;
+  margin-top: 24px;
 }

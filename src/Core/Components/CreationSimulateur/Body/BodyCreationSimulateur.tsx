@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import IEtapeDuSimulateur from "src/Core/Interfaces/Others/IEtapeDuSimulateur";
-import IPages_Simulations from "src/Core/Interfaces/User/ISimulateur";
+import ISimulateur from "src/Core/Interfaces/User/ISimulateur";
 import { Context, IContext } from "src/Utils/context";
 import "./.css";
 import MenuConfigPalier from "./MenuConfigPalier/MenuConfigPalier";
@@ -29,15 +29,14 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
     number
   >(0);
   const [etapeSelected, setEtapeSelected] = useState<number>(0);
-  const [simulateurSelected, setSimulateurSelected] = useState<
-    IPages_Simulations
-  >();
+  const [simulateurSelected, setSimulateurSelected] = useState<ISimulateur>(
+    {} as ISimulateur
+  );
   useEffect(() => {
-    setSimulateurSelected(
-      monContext.User.get.simulateurs.find(
-        (simu) => simu.Id == props.simulateurId
-      )
+    let simu = monContext.User.get.simulateurs.find(
+      (simu) => simu.Id == props.simulateurId
     );
+    simu && setSimulateurSelected(simu);
     let etapes: IEtapeDuSimulateur[] = [];
     monContext.User.get.simulateurs
       .find((simu) => simu.Id == props.simulateurId)
@@ -54,65 +53,73 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
   const onChangeEtape = (currentStep: number) =>
     setCurrentEtapeOfSimulateur(currentStep);
   return (
-    <Layout>
-      {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
-        <MenuConfigPalier
-          backgroundColorHeader={backgroundColorHeader}
-          setBackgroundColorHeader={setBackgroundColorHeader}
-          palierSelected={0}
-          simulateurSelected={simulateurSelected}
-        />
-      ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
-        <MenuConfigPalier
-          backgroundColorHeader={backgroundColorHeader}
-          setBackgroundColorHeader={setBackgroundColorHeader}
-          etapeConfigSelected={simulateurSelected?.etapes_view[currentEtapeOfSimulateur]}
-          palierSelected={1}
-        />
-      ) : (
-        props.currentStep === 2 && (
-          <MenuConfigPalier
-            backgroundColorHeader={backgroundColorHeader}
-            setBackgroundColorHeader={setBackgroundColorHeader}
-            palierSelected={2}
-          />
-        ) // SI C'EST PALIER DES TARIFS
-      )}
+    <div style={{ height: "100%" }}>
+      {simulateurSelected.Id != undefined && (
+        <Layout>
+          {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
+            <MenuConfigPalier
+              backgroundColorHeader={backgroundColorHeader}
+              setBackgroundColorHeader={setBackgroundColorHeader}
+              palierSelected={0}
+              simulateurSelected={simulateurSelected}
+            />
+          ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
+            <MenuConfigPalier
+              backgroundColorHeader={backgroundColorHeader}
+              setBackgroundColorHeader={setBackgroundColorHeader}
+              etapeConfigSelected={
+                simulateurSelected?.etapes_view[currentEtapeOfSimulateur]
+              }
+              simulateurSelected={simulateurSelected}
+              palierSelected={1}
+            />
+          ) : (
+            props.currentStep === 2 && (
+              <MenuConfigPalier
+                backgroundColorHeader={backgroundColorHeader}
+                setBackgroundColorHeader={setBackgroundColorHeader}
+                palierSelected={2}
+                simulateurSelected={simulateurSelected}
+              />
+            ) // SI C'EST PALIER DES TARIFS
+          )}
 
-      <Content>
-        {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
-          <PalierCapture
-            backgroundColorHeader={backgroundColorHeader}
-            etapesDuSimulateur={etapesDuSimulateur}
-            setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
-            setEtapesDuSimulateur={setEtapesDuSimulateur}
-            currentEtapeOfSimulateur={currentEtapeOfSimulateur}
-            onChangeEtape={onChangeEtape}
-            etapeSelected={etapeSelected}
-            setEtapeSelected={setEtapeSelected}
-            simulateurSelected={simulateurSelected}
-          />
-        ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
-          <PalierEtapes
-            backgroundColorHeader={backgroundColorHeader}
-            etapesDuSimulateur={etapesDuSimulateur}
-            setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
-            setEtapesDuSimulateur={setEtapesDuSimulateur}
-            currentEtapeOfSimulateur={currentEtapeOfSimulateur}
-            onChangeEtape={onChangeEtape}
-            etapeSelected={etapeSelected}
-            setEtapeSelected={setEtapeSelected}
-            simulateurSelected={simulateurSelected}
-          />
-        ) : (
-          props.currentStep === 2 && ( // SI C'EST PALIER DES TARIFS
-            <div className="steps-content">
-              {props.steps[props.currentStep].content}
-            </div>
-          )
-        )}
-      </Content>
-    </Layout>
+          <Content>
+            {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
+              <PalierCapture
+                backgroundColorHeader={backgroundColorHeader}
+                etapesDuSimulateur={etapesDuSimulateur}
+                setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
+                setEtapesDuSimulateur={setEtapesDuSimulateur}
+                currentEtapeOfSimulateur={currentEtapeOfSimulateur}
+                onChangeEtape={onChangeEtape}
+                etapeSelected={etapeSelected}
+                setEtapeSelected={setEtapeSelected}
+                simulateurSelected={simulateurSelected}
+              />
+            ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
+              <PalierEtapes
+                backgroundColorHeader={backgroundColorHeader}
+                etapesDuSimulateur={etapesDuSimulateur}
+                setCurrentEtapeOfSimulateur={setCurrentEtapeOfSimulateur}
+                setEtapesDuSimulateur={setEtapesDuSimulateur}
+                currentEtapeOfSimulateur={currentEtapeOfSimulateur}
+                onChangeEtape={onChangeEtape}
+                etapeSelected={etapeSelected}
+                setEtapeSelected={setEtapeSelected}
+                simulateurSelected={simulateurSelected}
+              />
+            ) : (
+              props.currentStep === 2 && ( // SI C'EST PALIER DES TARIFS
+                <div className="steps-content">
+                  {props.steps[props.currentStep].content}
+                </div>
+              )
+            )}
+          </Content>
+        </Layout>
+      )}
+    </div>
   );
 };
 

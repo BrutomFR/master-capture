@@ -1,5 +1,11 @@
 App {
-    height: 100%;
-    text-align: center;
+  height: 100%;
+  text-align: center;
 }
-
+@font-face {
+  font-family: "Rubik";
+  src: url(./Fonts/Rubik-Regular.ttf);
+}
+body {
+  font-family: "Rubik";
+}
