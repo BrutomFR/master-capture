@@ -52,10 +52,15 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
 
   return (
     <div>
-      <Layout>
+      <Layout style={{ overflowY: "hidden" }}>
         <HeaderSimulationCreation />
         {autorisation ? (
-          <div style={{ height: "100%" }}>
+          <div
+            style={{
+              height: "100%",
+              marginTop: "65px",
+            }}
+          >
             <BodyCreationSimulateur
               simulateurId={params.id}
               steps={steps}

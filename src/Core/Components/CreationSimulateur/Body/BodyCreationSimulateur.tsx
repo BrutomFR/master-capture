@@ -36,7 +36,10 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
     let simu = monContext.User.get.simulateurs.find(
       (simu) => simu.Id == props.simulateurId
     );
-    simu && setSimulateurSelected(simu);
+    if (simu) {
+      setSimulateurSelected(simu);
+      setBackgroundColorHeader(simu.design_configuration.background_color);
+    }
     let etapes: IEtapeDuSimulateur[] = [];
     monContext.User.get.simulateurs
       .find((simu) => simu.Id == props.simulateurId)
@@ -62,6 +65,7 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
               setBackgroundColorHeader={setBackgroundColorHeader}
               palierSelected={0}
               simulateurSelected={simulateurSelected}
+              currentEtapeOfSimulateur={currentEtapeOfSimulateur}
             />
           ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
             <MenuConfigPalier
@@ -72,6 +76,7 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
               }
               simulateurSelected={simulateurSelected}
               palierSelected={1}
+              currentEtapeOfSimulateur={currentEtapeOfSimulateur}
             />
           ) : (
             props.currentStep === 2 && (
@@ -80,6 +85,7 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
                 setBackgroundColorHeader={setBackgroundColorHeader}
                 palierSelected={2}
                 simulateurSelected={simulateurSelected}
+                currentEtapeOfSimulateur={currentEtapeOfSimulateur}
               />
             ) // SI C'EST PALIER DES TARIFS
           )}

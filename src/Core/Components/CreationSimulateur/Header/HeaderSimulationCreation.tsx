@@ -23,19 +23,20 @@ const HeaderSimulationCreation: FunctionComponent<IHeaderSimulationCreation> = (
   }, []);
 
   return (
-    <div>
-      <Header className="header-creation-simulateur">
-        <Link to="/">
-          <Button icon={<LeftOutlined translate="yes" />} />
-        </Link>
-        <img
-          style={{ width: "40px", marginLeft: "20px", marginRight: "20px" }}
-          src={ImgLogo}
-          alt="master-capture-brutom"
-        />
-        Création de simulateur
-      </Header>
-    </div>
+    <Header
+      style={{ position: "fixed", zIndex: 1, width: "100%" }}
+      className="header-creation-simulateur"
+    >
+      <Link to="/">
+        <Button icon={<LeftOutlined translate="yes" />} />
+      </Link>
+      <img
+        style={{ width: "40px", marginLeft: "20px", marginRight: "20px" }}
+        src={ImgLogo}
+        alt="master-capture-brutom"
+      />
+      Création de simulateur
+    </Header>
   );
 };
 

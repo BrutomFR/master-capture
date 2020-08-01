@@ -47,7 +47,7 @@ const MenuConfigPalierCapture: FunctionComponent<IMenuConfigPalierCapture> = (
     }
   };
   return (
-    <div>
+    <div style={{ marginBottom: "200px" }}>
       <div className="main-title-config-palier-container">
         Configuration de la page de capture.
       </div>

@@ -7,4 +7,5 @@ export interface IMenuConfigPalier {
   etapeConfigSelected?: IEtapes_View;
   palierSelected: number;
   simulateurSelected: IPages_Simulations;
+  currentEtapeOfSimulateur: number
 }

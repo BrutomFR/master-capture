@@ -61,6 +61,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
         <div className="container-card-simulateur">
           <Card title="Mes simulateurs:" bordered={true}>
             <Row
+              justify="center"
               gutter={{
                 md: 24,
                 sm: 16,

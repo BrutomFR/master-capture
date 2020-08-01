@@ -28,9 +28,9 @@ const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
         description: "",
         titre: "",
       },
-      question: "",
+      question: "Nouvelle question.",
       reponses: [],
-      titre_progressbar: "",
+      titre_progressbar: "Nouvelle étape",
     });
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
   };

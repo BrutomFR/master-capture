@@ -12,5 +12,5 @@ export interface IPalierEtapes {
   onChangeEtape: (currentStep: number) => void;
   etapeSelected: number;
   setEtapeSelected: React.Dispatch<React.SetStateAction<number>>;
-  simulateurSelected?: IPages_Simulations;
+  simulateurSelected: IPages_Simulations;
 }

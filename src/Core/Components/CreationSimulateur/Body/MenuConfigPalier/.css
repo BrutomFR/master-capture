@@ -9,8 +9,9 @@
   font-size: 17px;
 }
 .menu-configuratoin-creation-simulateur {
-  width: 300px;
   background-color: #001529;
   color: white;
   padding: 10px;
+  overflow-y: scroll;
+  padding-top: 25px;
 }

@@ -1,3 +1,6 @@
+import { QuestionCircleOutlined } from "@ant-design/icons";
+// tslint:disable-next-line:ordered-imports
+import { Button, Col, Row } from "antd";
 import React, {
   FunctionComponent,
   useEffect,
@@ -28,11 +31,57 @@ const PalierEtapes: FunctionComponent<IPalierEtapes> = (props) => {
         isEtapesStep={true}
         simulateurSelected={props.simulateurSelected}
       />
-      <div>
-        {
-          props.simulateurSelected?.etapes_view[props.currentEtapeOfSimulateur]
-            .question
-        }
+      <div style={{ paddingBottom: "145px" }}>
+        <div className="container-live-simulateur">
+          <h1
+            style={{
+              fontSize: "35px",
+              fontWeight: "bold",
+              margin: "10px",
+              marginBottom: "25px",
+            }}
+          >
+            {
+              props.simulateurSelected.etapes_view[
+                props.currentEtapeOfSimulateur
+              ].question
+            }
+          </h1>
+          <Row
+            justify="center"
+            gutter={{
+              md: 24,
+              sm: 16,
+              xs: 8,
+            }}
+          >
+            {props.simulateurSelected.etapes_view[
+              props.currentEtapeOfSimulateur
+            ].reponses.map((value, i) => (
+              <Col span={12} key={i}>
+                <Button
+                  size="large"
+                  block
+                  type="primary"
+                  style={{
+                    borderColor: "#3cb371",
+                    backgroundColor: "#3cb371",
+                    marginTop: "40px",
+                  }}
+                >
+                  {value.reponse}
+                </Button>
+                <QuestionCircleOutlined style={{ fontSize: "50px" }} />
+                <div
+                  style={{ fontSize: "17px" }}
+                  dangerouslySetInnerHTML={{
+                    __html: value.informations,
+                  }}
+                />
+              </Col>
+            ))}
+          </Row>
+        </div>
       </div>
     </div>
   );

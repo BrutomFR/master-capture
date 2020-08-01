@@ -1,4 +1,4 @@
-import { Layout, Steps } from 'antd';
+import { Layout, Steps } from "antd";
 import React, {
   FunctionComponent,
   useEffect,
@@ -23,15 +23,13 @@ const FooterCreationSimulateur: FunctionComponent<IFooterCreationSimulateur> = (
   }, []);
 
   return (
-    <div>
-      <Footer>
-        <Steps current={props.currentStep}>
-          {props.steps.map((item) => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-      </Footer>
-    </div>
+    <Footer style={{ position: "sticky", bottom: "0" }}>
+      <Steps current={props.currentStep}>
+        {props.steps.map((item) => (
+          <Step key={item.title} title={item.title} />
+        ))}
+      </Steps>
+    </Footer>
   );
 };
 
