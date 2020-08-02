@@ -1,66 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Master Capture</title>
-    <style>
-      body > #root > div {
-        height: 100vh;
-      }
-      .water {
-        width: 100px;
-        height: 100px;
-        background-color: skyblue;
-        border-radius: 50%;
-        position: relative;
-        box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, 0.5),
-          0 4px 10px 0 rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
-      .water:before,
-      .water:after {
-        content: "";
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        top: -25px;
 
-        background-color: #fff;
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="./icons/logo-bruton-blanc-50x50.ico" />
+
+  <title>Master Capture</title>
+  <style>
+    body>#root>div {
+      height: 100vh;
+    }
+
+    .water {
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, 0.5),
+        0 4px 10px 0 rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .water:before,
+    .water:after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: -25px;
+
+      background-color: #fff;
+    }
+
+    .water:before {
+      border-radius: 45%;
+      background: rgba(255, 255, 255, 0.7);
+      animation: wave 5s linear infinite;
+    }
+
+    .water:after {
+      border-radius: 35%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: wave 5s linear infinite;
+    }
+
+    @keyframes wave {
+      0% {
+        transform: rotate(0);
       }
-      .water:before {
-        border-radius: 45%;
-        background: rgba(255, 255, 255, 0.7);
-        animation: wave 5s linear infinite;
+
+      100% {
+        transform: rotate(360deg);
       }
-      .water:after {
-        border-radius: 35%;
-        background: rgba(255, 255, 255, 0.3);
-        animation: wave 5s linear infinite;
-      }
-      @keyframes wave {
-        0% {
-          transform: rotate(0);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      .container-logo-loading {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    
-    <div id="root">
-      <div class="container-logo-loading">
-        <div class="water"></div>
-      </div>
+    }
+
+    .container-logo-loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <div id="root">
+    <div class="container-logo-loading">
+      <div class="water"></div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

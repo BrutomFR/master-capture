@@ -56,7 +56,9 @@ const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
         ))}
       </Steps>
       {props.isEtapesStep && (
-        <Button onClick={addEtapeOnSimulateur}>Ajouter une étape</Button>
+        <Button style={{ marginTop: "20px" }} onClick={addEtapeOnSimulateur}>
+          Ajouter une étape
+        </Button>
       )}
     </div>
   );

@@ -116,7 +116,7 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
               />
             }
             suffix={
-              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verra.">
+              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verras.">
                 <InfoCircleOutlined
                   translate="yes"
                   style={{ color: "rgba(0,0,0,.45)" }}
@@ -216,7 +216,7 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
           />
           <div style={{ textAlign: "right", marginTop: "40px" }}>
             <Popconfirm
-              title="Es-tu sûr de voulir supprimer ce simulateur ? Il sera impossible de le récupérer."
+              title="Es-tu sûr de vouloir supprimer ce simulateur ? Il sera impossible de le récupérer."
               onConfirm={deleteSimulateur}
               okText="Oui"
               cancelText="Non"

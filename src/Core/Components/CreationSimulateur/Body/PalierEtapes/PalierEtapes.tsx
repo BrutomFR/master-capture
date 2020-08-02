@@ -70,7 +70,7 @@ const PalierEtapes: FunctionComponent<IPalierEtapes> = (props) => {
                 >
                   {value.reponse}
                 </Button>
-                <QuestionCircleOutlined style={{ fontSize: "50px" }} />
+                <QuestionCircleOutlined style={{ fontSize: "50px", padding: "20px" }} />
                 <div
                   style={{ fontSize: "17px" }}
                   dangerouslySetInnerHTML={{

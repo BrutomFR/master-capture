@@ -55,7 +55,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
 
     let visitors = 0;
     let mails = 0;
-    let simulators = 0; 
+    let simulators = 0;
 
     const t: IUser = JSON.parse(JSON.stringify(monContext.User.get));
 
@@ -123,7 +123,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
           <ChartCard
             title={<div>Taux de conversion</div>}
             action={
-              <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminées.">
+              <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminés.">
                 <InfoCircleOutlined translate="yes" />
               </Tooltip>
             }
@@ -133,16 +133,32 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
                   ((emails / visiteurs) * 100 +
                     (simulateurs / visiteurs) * 100) /
                   2
-                ).toFixed(2)}
+                ).toFixed(2) === "NaN"
+                  ? 0
+                  : (
+                      ((emails / visiteurs) * 100 +
+                        (simulateurs / visiteurs) * 100) /
+                      2
+                    ).toFixed(2)}
                 %
               </div>
             }
             footer={<Field label="Aujourd'hui:" value={"-"} />}
             contentHeight={60}
           >
-            <div>Email: {((emails / visiteurs) * 100).toFixed(2)}%</div>
             <div>
-              Simulateur: {((simulateurs / visiteurs) * 100).toFixed(2)}%
+              Email:{" "}
+              {((emails / visiteurs) * 100).toFixed(2) === "NaN"
+                ? 0
+                : ((emails / visiteurs) * 100).toFixed(2)}
+              %
+            </div>
+            <div>
+              Simulateur:{" "}
+              {((simulateurs / visiteurs) * 100).toFixed(2) === "NaN"
+                ? 0
+                : ((simulateurs / visiteurs) * 100).toFixed(2)}
+              %
             </div>
           </ChartCard>
         </div>
@@ -151,7 +167,7 @@ const StatistiquesSimulateurs: FunctionComponent<IStatistiquesSimulateurs> = (
             title={<div>Visiteurs</div>}
             contentHeight={60}
             action={
-              <Tooltip title="Correspond au nombre de visiteur sur le/les simulateurs séléctionnés au dessus">
+              <Tooltip title="Correspond au nombre de visiteurs sur le/les simulateurs séléctionnés au dessus">
                 <InfoCircleOutlined translate="yes" />
               </Tooltip>
             }

@@ -20,7 +20,9 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
 ) => {
   const monContext: IContext = useContext(Context);
   const [dateSelected, setDateSelected] = useState<number>(30);
-  const [statistiques, setStatistiques] = useState<IStatistiquesSimulateur[]>([]); // All stats
+  const [statistiques, setStatistiques] = useState<IStatistiquesSimulateur[]>(
+    []
+  ); // All stats
   const [visiteurs, setVisiteur] = useState<number>(0);
   const [emails, setEmails] = useState<number>(0);
   const [simulateursValide, setSimulateursValide] = useState<number>(0);
@@ -119,7 +121,7 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
             <ChartCard
               title={<div>Taux de conversion</div>}
               action={
-                <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminées.">
+                <Tooltip title="La moyenne entre le taux d'emails capturés et de simulateurs terminés.">
                   <InfoCircleOutlined translate="yes" />
                 </Tooltip>
               }
@@ -129,16 +131,31 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
                     ((emails / visiteurs) * 100 +
                       (simulateursValide / visiteurs) * 100) /
                     2
-                  ).toFixed(2)}
+                  ).toFixed(2) === "NaN"
+                    ? 0
+                    : (
+                        ((emails / visiteurs) * 100 +
+                          (simulateursValide / visiteurs) * 100) /
+                        2
+                      ).toFixed(2)}
                   %
                 </div>
               }
               footer={<Field label="Aujourd'hui:" value="-" />}
               contentHeight={60}
             >
-              <div>Email: {((emails / visiteurs) * 100).toFixed(2)}%</div>
               <div>
-                Simulateur: {((simulateursValide / visiteurs) * 100).toFixed(2)}
+                Email:{" "}
+                {((emails / visiteurs) * 100).toFixed(2) === "NaN"
+                  ? 0
+                  : ((emails / visiteurs) * 100).toFixed(2)}
+                %
+              </div>
+              <div>
+                Simulateur:{" "}
+                {((simulateursValide / visiteurs) * 100).toFixed(2) === "NaN"
+                  ? 0
+                  : ((simulateursValide / visiteurs) * 100).toFixed(2)}
                 %
               </div>
             </ChartCard>
@@ -148,7 +165,7 @@ const PopupStatistiqueSimulateur: FunctionComponent<IPopupStatistiqueSimulateur>
               title={<div>Visiteurs</div>}
               contentHeight={60}
               action={
-                <Tooltip title="Correspond au nombre de visiteur sur le/les simulateurs séléctionnés au dessus">
+                <Tooltip title="Correspond au nombre de visiteurs sur le/les simulateurs séléctionnés au dessus">
                   <InfoCircleOutlined translate="yes" />
                 </Tooltip>
               }

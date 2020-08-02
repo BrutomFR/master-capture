@@ -20,7 +20,7 @@ const { Header, Sider, Content } = Layout;
 const Dashboard: FunctionComponent<IDashboard> = (props) => {
   const monContext: IContext = useContext(Context);
   const [collapsed, setCollapsed] = useState<boolean>(
-    monContext.SizeScreenUser.get < 900 ? true : false
+    monContext.SizeScreenUser.get < 900 ? true : true
   );
   const [contentSelected, setContentSelected] = useState<string>("Accueil");
   useEffect(() => {
@@ -31,7 +31,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
   const toggle = () => setCollapsed(!collapsed);
   return (
     <div>
-      {monContext.User.get.newUser && <PopupNewUser />}
+      {monContext.User.get.tutoriel.newUser && <PopupNewUser />}
       <Layout>
         {monContext.SizeScreenUser.get < 500 ? (
           <div>MOBILE DETECTE: CREER MENU POUR RECUPERER LA PLACE !!!</div>
@@ -62,7 +62,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
           <Header className="site-layout-background header">
             <Row>
               <Col span={8}>
-                <h3>Bienvenue {monContext.User.get.Prenom} !</h3>
+                <h3>Bonjour {monContext.User.get.Prenom} !</h3>
               </Col>
               <Col span={8}></Col>
               <Col span={8} className="profile-menu">
@@ -76,7 +76,7 @@ const Dashboard: FunctionComponent<IDashboard> = (props) => {
             ) : contentSelected === "Mes simulateurs" ? (
               <MesSimulateurs />
             ) : (
-              <div>N'existe pas</div>
+              <div style={{ padding: "50px" }}>À venir...</div>
             )}
           </Content>
         </Layout>

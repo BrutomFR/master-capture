@@ -31,9 +31,26 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
       Id: Date.now(),
       etapes_view: [
         {
-          question: "Question",
-          titre_progressbar: "Titre Etape",
-          reponses: [],
+          question: "Avez-vous déjà une page Facebook ?",
+          titre_progressbar: "Page Facebook",
+          reponses: [
+            {
+              abonement: false,
+              reponse: "Oui",
+              informations:
+                "Vous avez déjà une page Facebook professionnelle qui représente votre entreprise. Il suffira simplement de <b>me donner accès au droit d'administrateur sur votre page</b>. Un pdf avec les étapes en images vous sera fourni pour la manipulation.",
+              nom_option: "Création de page Facebook",
+              prix: 0,
+            },
+            {
+              abonement: false,
+              reponse: "Non, j'ai besoin d'une création de page Facebook",
+              informations:
+                "Je m'occupe de <b>créer votre page Facebook Professionnelle</b>. Je vous demanderez les informations nécessaires de votre entreprise pour remplir toutes les informations de la page.",
+              nom_option: "Création de page Facebook",
+              prix: 30,
+            },
+          ],
         },
       ],
       statistiques_simulateurs: [],
@@ -45,8 +62,9 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
         background_color: "#0582ca",
       },
       etape_capture: {
-        titre: "Titre de votre page",
-        texte_accroche: "Text d'accroche",
+        titre: "GARDEZ LE CONTRÔLE EN 7 CLICS !",
+        texte_accroche:
+          "<p>Calculez <b>gratuitement le prix de la création</b> et d'accompagnement personnalisé de vos <b>campagnes publicitaires sur mesure</b></p><p><b>Estimez le coût de création</b> et de gestion de vos publicités sur Facebook en <b>seulement 7 étapes</b> !</p>",
         email_capture: "Votre email",
         prenom: "Votre prénom",
         button_valide: "C'EST PARTI !",
@@ -93,6 +111,7 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
         <div className="content-modal">
           <p>Nom du simulateur:</p>
           <Input
+            onPressEnter={handleOk}
             style={{ marginBottom: "10px" }}
             prefix={
               <StepForwardOutlined
@@ -101,7 +120,7 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
               />
             }
             suffix={
-              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verra.">
+              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verras.">
                 <InfoCircleOutlined
                   translate="yes"
                   style={{ color: "rgba(0,0,0,.45)" }}

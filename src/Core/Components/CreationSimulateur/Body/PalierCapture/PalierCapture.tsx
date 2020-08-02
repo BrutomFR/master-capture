@@ -51,6 +51,7 @@ const PalierCapture: FunctionComponent<IPalierCapture> = (props) => {
           <Input
             size="large"
             placeholder="Thomas"
+            value=""
             prefix={<UserOutlined translate="yes" />}
           />
           <p style={{ marginTop: "20px" }}>
@@ -60,6 +61,7 @@ const PalierCapture: FunctionComponent<IPalierCapture> = (props) => {
             size="large"
             placeholder="email@gmail.com"
             prefix={<MailOutlined translate="yes" />}
+            value=""
           />
           <Button
             size="large"

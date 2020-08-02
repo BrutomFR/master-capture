@@ -23,7 +23,14 @@ const FooterCreationSimulateur: FunctionComponent<IFooterCreationSimulateur> = (
   }, []);
 
   return (
-    <Footer style={{ position: "sticky", bottom: "0" }}>
+    <Footer
+      style={{
+        position: "sticky",
+        bottom: "0",
+        borderTop: "solid",
+        borderColor: "#1890ff",
+      }}
+    >
       <Steps current={props.currentStep}>
         {props.steps.map((item) => (
           <Step key={item.title} title={item.title} />

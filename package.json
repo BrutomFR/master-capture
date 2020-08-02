@@ -1,7 +1,7 @@
 {
   "name": "master-capture",
   "version": "1.0.0",
-  "description": "An awesome application to handle some pokemons.",
+  "description": "Une façon originale de récupérer des prospects !",
   "private": true,
   "homepage": "http://dashboard.master-capture.com/",
   "dependencies": {

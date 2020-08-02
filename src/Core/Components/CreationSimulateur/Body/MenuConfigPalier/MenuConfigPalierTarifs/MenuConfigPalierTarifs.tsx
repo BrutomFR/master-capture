@@ -52,7 +52,9 @@ const MenuConfigPalierTarifs: FunctionComponent<IMenuConfigPalierTarifs> = (
         Configuration des tarifications.
       </div>
       <div className="title-config-palier-container">Couleur principale:</div>
-      <Button onClick={() => setOpenColorPicker(true)}>Ouvrir</Button>
+      <Button onClick={() => setOpenColorPicker(!openColorPicker)}>
+        Ouvrir
+      </Button>
       {openColorPicker && (
         <ChromePicker
           onChangeComplete={(color, event) => handleColorChange(color, event)}
@@ -60,7 +62,9 @@ const MenuConfigPalierTarifs: FunctionComponent<IMenuConfigPalierTarifs> = (
         />
       )}
       <div className="title-config-palier-container">Couleur secondaire:</div>
-      <Button onClick={() => setOpenColorPickerPlan(true)}>Ouvrir</Button>
+      <Button onClick={() => setOpenColorPickerPlan(!openColorPickerPlan)}>
+        Ouvrir
+      </Button>
       {openColorPickerPlan && (
         <ChromePicker
           onChangeComplete={(color, event) =>

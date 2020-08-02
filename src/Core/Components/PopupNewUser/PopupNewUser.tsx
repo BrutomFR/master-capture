@@ -3,7 +3,7 @@ import {
   InfoCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Modal, Tooltip } from "antd";
+import { Button, message, Modal, Tooltip } from "antd";
 import { Input } from "antd";
 import React, {
   FunctionComponent,
@@ -40,12 +40,14 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
       const user: IUser = {
         Nom: inputNom,
         Prenom: inputPrenom,
-        newUser: false,
+        tutoriel: {
+          createSimulateur: monContext.User.get.tutoriel.createSimulateur,
+          newUser: false,
+        },
         simulateurs: [],
       };
-
-      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, user);
-
+      FirebaseHelper.CreateClient(monContext.Auth.get.uid, user);
+      message.success(user.Prenom + ", bienvenue à toi sur Master Capture !");
       // On supprime le loading et le modal
       setTimeout(() => {
         setConfirmLoading(false);
@@ -113,6 +115,7 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
             }
             // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputNom(e.target.value)}
+            onPressEnter={handleOk}
           />
         </div>
       </Modal>

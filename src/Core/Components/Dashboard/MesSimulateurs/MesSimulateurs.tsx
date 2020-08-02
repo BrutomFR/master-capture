@@ -77,7 +77,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                       setSelectedSimulateur(i);
                     }}
                   >
-                    <CardSimulateur               
+                    <CardSimulateur
                       openPopupStatistiques={setStatSimulateurPopup}
                       openPopupConfig={setConfigSimulateurPopup}
                       simulateur={value}
@@ -87,13 +87,14 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
               ))}
             </Row>
             <div className="container-button-add-simulateur">
-              <Tooltip title="Ajouter un simulateur">
+              <Tooltip title="Crée ton simulateur en live !">
                 <Button
                   size="large"
-                  shape="circle"
                   icon={<PlusOutlined translate="yes" />}
                   onClick={() => setNewSimulateurPopup(true)}
-                />
+                >
+                  Créer un simulateur
+                </Button>
               </Tooltip>
             </div>
           </Card>

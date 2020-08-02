@@ -1,4 +1,5 @@
-import { Input } from "antd";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { Input, Tooltip } from "antd";
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { Context, IContext } from "src/Utils/context";
 import * as FirebaseHelper from "src/Utils/FirebaseHelper";
@@ -56,7 +57,12 @@ const MenuConfigPalierCapture: FunctionComponent<IMenuConfigPalierCapture> = (
         defaultValue={props.simulateurSelected.etape_capture.titre}
         onChange={changeTitreCapture}
       />
-      <div className="title-config-palier-container">Texte d'accroche:</div>
+      <div className="title-config-palier-container">
+        Texte d'accroche:
+        <Tooltip title="Tu peux utiliser du HTML pour la mise en forme. Par exemple: <b>Mot en gras</b>">
+          <InfoCircleOutlined style={{ marginLeft: "5px" }} translate="yes" />
+        </Tooltip>
+      </div>
       <TextArea
         rows={6}
         defaultValue={props.simulateurSelected.etape_capture.texte_accroche}

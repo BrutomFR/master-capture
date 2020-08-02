@@ -4,9 +4,9 @@ import firebase from "firebase";
 import { FunctionComponent, useEffect, useState } from "react";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import './.css'
+import "./.css";
 import { IUser } from "./Core/Interfaces/IUser";
-import CreationSimulateur from './Core/Pages/CreationSimulateur/CreationSimulateur';
+import CreationSimulateur from "./Core/Pages/CreationSimulateur/CreationSimulateur";
 import Dashboard from "./Core/Pages/Dashboard/Dashboard";
 import Login from "./Core/Pages/Login/Login";
 import { Context, IContext } from "./Utils/context";
@@ -37,10 +37,21 @@ const App: FunctionComponent = (props) => {
     // on cherche si quelqu'un est connecté
     firebase.auth().onAuthStateChanged((a) => {
       if (a) {
-        setAuth(a);
         FirebaseHelper.GetClient(a.uid).subscribe((client) => {
           console.log(client);
-          setUser(client as IUser);
+          if (client) setUser(client as IUser);
+          else {
+            setUser({
+              Nom: "",
+              Prenom: "",
+              tutoriel: {
+                newUser: true,
+                createSimulateur: true,
+              },
+              simulateurs: [],
+            });
+          }
+          setAuth(a);
         });
       } else {
         setAuth({
@@ -48,6 +59,7 @@ const App: FunctionComponent = (props) => {
         });
       }
     });
+
     return () => {
       //
     };
@@ -60,10 +72,7 @@ const App: FunctionComponent = (props) => {
       ) : (
         <BrowserRouter>
           <Switch>
-            <Route
-              path="/simulateur/:id"
-              component={CreationSimulateur}
-            />
+            <Route path="/simulateur/:id" component={CreationSimulateur} />
             <Route path="/" component={Dashboard} />
           </Switch>
         </BrowserRouter>

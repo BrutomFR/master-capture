@@ -133,33 +133,35 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
           return (
             // <div key={key} className="title-reponse-container">
             <Panel header={value.reponse} key={key}>
-              <p>Bouton de réponse:</p>
+              <div className="title-input-config">Bouton de réponse:</div>
               <Input
                 onChange={(e) => changeReponse(e, key)}
                 placeholder={value.reponse}
               />
-              <p>Informations de la réponse:</p>
+              <div className="title-input-config">
+                Informations de la réponse:
+              </div>
               <TextArea
                 rows={4}
                 onChange={(e) => changeInformations(e, key)}
                 placeholder={value.informations}
               />
-              <p>
+              <div className="title-input-config">
                 Nom de l'option:
                 <Tooltip title="Le nom de l'option sera affiché à la fin du simulateur dans les tarifs. C'est pour informer votre prospect sur ce qu'il a choisi au cours des étapes.">
                   <InfoCircleOutlined translate="yes" />
                 </Tooltip>
-              </p>
+              </div>
               <Input
                 onChange={(e) => changeNomOption(e, key)}
                 placeholder={value.nom_option}
               />
-              <p>
+              <div className="title-input-config">
                 Prix:
                 <Tooltip title="C'est le prix de l'option que le prospect choisi. Si cela n'a pas de prix tu peux simplement écrire 0.">
                   <InfoCircleOutlined translate="yes" />
                 </Tooltip>
-              </p>
+              </div>
 
               <InputNumber
                 min={1}
@@ -168,12 +170,12 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               />
               {props.simulateurSelected.devise}
 
-              <p>
+              <div className="title-input-config">
                 Type de rémunération:
                 <Tooltip title="Cette option a un coût ? Définissez le ici. Prix fixe: facture le montant défini une seule fois sur cette option. Prix d'abonnement/mois: facture le montant défini 1 fois par mois sur cette option.">
                   <InfoCircleOutlined translate="yes" />
                 </Tooltip>
-              </p>
+              </div>
               <Select
                 defaultValue="false"
                 style={{ width: 120 }}
@@ -185,6 +187,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
 
               <div className="container-delete-button-etape">
                 <Button
+                  danger
                   onClick={() => deleteReponseInEtape(key)}
                   type="primary"
                   shape="circle"
@@ -196,16 +199,29 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
           );
         })}
       </Collapse>
-      <Button
-        onClick={addEmptyReponseInEtape}
-        type="primary"
-        shape="circle"
-        icon={<PlusCircleOutlined />}
-      />
+      <div
+        style={{
+          padding: "20px",
+          textAlign: "center",
+          marginBottom: "20px",
+          backgroundColor: "#fafafa",
+        }}
+      >
+        <Button
+          onClick={addEmptyReponseInEtape}
+          type="primary"
+          icon={<PlusCircleOutlined />}
+        >
+          Ajouter une réponse
+        </Button>
+      </div>
+
       <div className="container-button-delete-etape">
         <Button
+          danger
           icon={<DeleteOutlined translate="yes" />}
           onClick={deleteEtapeInSimulateur}
+          style={{ width: "100%" }}
         >
           Supprimer l'étape
         </Button>

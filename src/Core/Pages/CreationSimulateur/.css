@@ -4,15 +4,18 @@
 
 .ant-layout-header {
   color: white;
+  height: auto;
+  border-bottom: solid;
+  border-color: #1890ff;
 }
 .ant-layout-sider-children {
   color: white;
 }
 .header-steps-simulateur {
-    background-color: #f0f2f5;
-    color: black;
+  background-color: #f0f2f5;
+  color: black;
 }
 .header-creation-simulateur {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }

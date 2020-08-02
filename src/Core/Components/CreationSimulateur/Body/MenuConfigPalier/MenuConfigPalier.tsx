@@ -48,7 +48,10 @@ const MenuConfigPalier: FunctionComponent<IMenuConfigPalier> = (props) => {
               <div className="title-config-palier-conatiner">
                 Couleur du menu:
               </div>
-              <Button onClick={() => setOpenColorPicker(!openColorPicker)}>
+              <Button
+                style={{ width: "100%" }}
+                onClick={() => setOpenColorPicker(!openColorPicker)}
+              >
                 Choisir
               </Button>
             </div>

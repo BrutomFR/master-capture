@@ -32,6 +32,9 @@ export function SignIn(
 export function UpdateClient(uid: string, client: IUser) {
   return db.collection("users").doc(uid).update(client);
 }
+export function CreateClient(uid: string, client: IUser) {
+  return db.collection("users").doc(uid).set(client);
+}
 export function GetClient(uid: string) {
   return new Observable((sub) => {
     db.collection("users")
