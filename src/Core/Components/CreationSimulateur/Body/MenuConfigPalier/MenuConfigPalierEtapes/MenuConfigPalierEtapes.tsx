@@ -3,10 +3,11 @@ import {
   InfoCircleOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Collapse, Input, Select, Tooltip } from "antd";
+import { Button, Collapse, Input, InputNumber, Select, Tooltip } from "antd";
 import React, { FunctionComponent, useContext, useEffect } from "react";
 import { Context, IContext } from "src/Utils/context";
 import * as FirebaseHelper from "src/Utils/FirebaseHelper";
+import { isNumber } from "util";
 import "./.css";
 import { IMenuConfigPalierEtapes } from "./props";
 
@@ -24,7 +25,6 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
   }, []);
 
   const deleteEtapeInSimulateur = () => {
-    console.log(props.currentEtapeOfSimulateur);
     if (props.simulateurSelected) {
       props.simulateurSelected.etapes_view.splice(
         props.currentEtapeOfSimulateur,
@@ -70,6 +70,24 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
       ].reponses[key].reponse = e.target.value;
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     }
+  };
+  const changeNomOption = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: number
+  ) => {
+    if (props.simulateurSelected) {
+      props.simulateurSelected.etapes_view[
+        props.currentEtapeOfSimulateur
+      ].reponses[key].nom_option = e.target.value;
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+    }
+  };
+  const changePrice = (e: number | string | undefined, key: number) => {
+    if (isNumber(e) && props.simulateurSelected && e)
+      props.simulateurSelected.etapes_view[
+        props.currentEtapeOfSimulateur
+      ].reponses[key].prix = parseInt(e.toString());
+    FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
   };
   const addEmptyReponseInEtape = () => {
     if (props.simulateurSelected) {
@@ -126,11 +144,36 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
                 onChange={(e) => changeInformations(e, key)}
                 placeholder={value.informations}
               />
-              <Tooltip title="Cette option a un coût ? Définissez le ici. Prix fixe: facture le montant défini une seule fois sur cette option. Prix d'abonnement/mois: facture le montant défini 1 fois par mois sur cette option.">
-                <p>
-                  Type de rémunération: <InfoCircleOutlined translate="yes" />
-                </p>
-              </Tooltip>
+              <p>
+                Nom de l'option:
+                <Tooltip title="Le nom de l'option sera affiché à la fin du simulateur dans les tarifs. C'est pour informer votre prospect sur ce qu'il a choisi au cours des étapes.">
+                  <InfoCircleOutlined translate="yes" />
+                </Tooltip>
+              </p>
+              <Input
+                onChange={(e) => changeNomOption(e, key)}
+                placeholder={value.nom_option}
+              />
+              <p>
+                Prix:
+                <Tooltip title="C'est le prix de l'option que le prospect choisi. Si cela n'a pas de prix tu peux simplement écrire 0.">
+                  <InfoCircleOutlined translate="yes" />
+                </Tooltip>
+              </p>
+
+              <InputNumber
+                min={1}
+                placeholder={value.prix.toString()}
+                onChange={(e) => changePrice(e, key)}
+              />
+              {props.simulateurSelected.devise}
+
+              <p>
+                Type de rémunération:
+                <Tooltip title="Cette option a un coût ? Définissez le ici. Prix fixe: facture le montant défini une seule fois sur cette option. Prix d'abonnement/mois: facture le montant défini 1 fois par mois sur cette option.">
+                  <InfoCircleOutlined translate="yes" />
+                </Tooltip>
+              </p>
               <Select
                 defaultValue="false"
                 style={{ width: 120 }}

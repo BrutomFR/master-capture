@@ -51,7 +51,13 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
         prenom: "Votre prénom",
         button_valide: "C'EST PARTI !",
       },
-      active: false,
+      etape_tarifs: {
+        tarifs: [],
+        color_tarifs: "#0582ca",
+        color_plans_tarifs: "#57A1CB",
+      },
+      public: false,
+      lien_rgpd: "",
     };
     monContext.User.get.simulateurs.push(simulateur);
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);

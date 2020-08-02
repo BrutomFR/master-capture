@@ -1,10 +1,21 @@
 import {
+  DeleteOutlined,
   FacebookOutlined,
   GoogleOutlined,
   InfoCircleOutlined,
+  InfoOutlined,
+  ShareAltOutlined,
   StepForwardOutlined,
 } from "@ant-design/icons";
-import { Button, Input, Modal, Select, Tooltip } from "antd";
+import {
+  Button,
+  Input,
+  message,
+  Modal,
+  Popconfirm,
+  Select,
+  Tooltip,
+} from "antd";
 import React, {
   FunctionComponent,
   useContext,
@@ -22,29 +33,53 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
 ) => {
   const monContext: IContext = useContext(Context);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const [inputPixelFacebook, setInputPixelFacebook] = useState<string>(props.simulateur.pixel_facebook);
-  const [inputPixelGoogle, setInputPixelGoogle] = useState<string>(props.simulateur.pixel_google);
+  const [inputPixelFacebook, setInputPixelFacebook] = useState<string>(
+    props.simulateur.pixel_facebook
+  );
+  const [inputPixelGoogle, setInputPixelGoogle] = useState<string>(
+    props.simulateur.pixel_google
+  );
   const [devise, setDevise] = useState<string>(props.simulateur.devise);
-  const [inputNomSimulateur, setInputNomSimulateur] = useState<string>(props.simulateur.Nom);
+  const [inputNomSimulateur, setInputNomSimulateur] = useState<string>(
+    props.simulateur.Nom
+  );
+  const [inputPageRgpd, setInputPageRgpd] = useState<string>(
+    props.simulateur.lien_rgpd
+  );
   useEffect(() => {
     return () => {
       //
     };
   }, []);
   const handleOk = () => {
-    // On affiche le loading
-    setConfirmLoading(true);
-    // On verifie si le nom est rempli
+    if (props.simulateur.public === true && inputPageRgpd === "")
+      message.error(
+        "Les RGPD sont obligatoires pour mettre en ligne ton simulateur."
+      );
+    else {
+      // On affiche le loading
+      setConfirmLoading(true);
+      // On verifie si le nom est rempli
       props.simulateur.Nom = inputNomSimulateur;
       props.simulateur.devise = devise;
       props.simulateur.pixel_facebook = inputPixelFacebook;
       props.simulateur.pixel_google = inputPixelGoogle;
-      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get)
+      props.simulateur.lien_rgpd = inputPageRgpd;
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+      if (props.simulateur.public)
+        FirebaseHelper.PublierSimulateur(props.simulateur);
       // On supprime le loading et le modal
       setTimeout(() => {
         setConfirmLoading(false);
         props.setVisible(false);
       }, 1000);
+    }
+  };
+  const deleteSimulateur = () => {
+    props.setVisible(false);
+    monContext.User.get.simulateurs.splice(props.selectedSimulateur, 1);
+    FirebaseHelper.DesactiverSimulateur(props.simulateur);
+    FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
   };
   return (
     <div>
@@ -57,7 +92,6 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
         visible={props.visible}
         confirmLoading={confirmLoading}
         cancelButtonProps={{ disabled: true }}
-        // tslint:disable-next-line:jsx-no-lambda
         onCancel={() => props.setVisible(false)}
         footer={[
           <Button
@@ -89,7 +123,6 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
                 />
               </Tooltip>
             }
-            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputNomSimulateur(e.target.value)}
           />
           <p>ID Pixel Facebook:</p>
@@ -98,17 +131,19 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
             placeholder="1202819124191566"
             style={{ marginBottom: "10px" }}
             prefix={
-              <FacebookOutlined translate="yes" className="site-form-item-icon" />
+              <FacebookOutlined
+                translate="yes"
+                className="site-form-item-icon"
+              />
             }
             suffix={
-              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verra.">
+              <Tooltip title="Id du pixel se trouve dans les paramètres d'évenements de ton Business Manager Facebook.">
                 <InfoCircleOutlined
                   translate="yes"
                   style={{ color: "rgba(0,0,0,.45)" }}
                 />
               </Tooltip>
             }
-            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputPixelFacebook(e.target.value)}
           />
           <p>Code de suivi Google Analytics:</p>
@@ -120,26 +155,78 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
               <GoogleOutlined translate="yes" className="site-form-item-icon" />
             }
             suffix={
-              <Tooltip title="C'est un nom pour te repérer. Seulement toi le verra.">
+              <Tooltip title="Le code de suivi ce trouve dans les paramètres de suivi de ton compte Google Analytics.">
                 <InfoCircleOutlined
                   translate="yes"
                   style={{ color: "rgba(0,0,0,.45)" }}
                 />
               </Tooltip>
             }
-            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setInputPixelGoogle(e.target.value)}
           />
-          <p>Devise de votre simulateur:</p>
+          <p>Lien page RGPD: (obligatoire)</p>
+          <Input
+            defaultValue={props.simulateur.lien_rgpd}
+            placeholder="https://lien-rgpd.fr"
+            style={{ marginBottom: "10px" }}
+            prefix={
+              <InfoOutlined translate="yes" className="site-form-item-icon" />
+            }
+            suffix={
+              <Tooltip title="Ce lien doit rediriger vers ta page RGPD. C'est obligatoire pour récupérer des informations comme le prenom ou l'email d'un prospect.">
+                <InfoCircleOutlined
+                  translate="yes"
+                  style={{ color: "rgba(0,0,0,.45)" }}
+                />
+              </Tooltip>
+            }
+            onChange={(e) => setInputPageRgpd(e.target.value)}
+          />
+          <p>Devise du simulateur:</p>
           <Select
             defaultValue={props.simulateur.devise}
             style={{ width: 120 }}
-            // tslint:disable-next-line:jsx-no-lambda
             onChange={(e) => setDevise(e)}
           >
             <Option value="€">Euro</Option>
             <Option value="$">Dollar</Option>
           </Select>
+          <p style={{ marginTop: "10px" }}>Lien du simulateur:</p>
+          <Input
+            value={
+              props.simulateur.public
+                ? "https://capture-master.com/simulateur/" + props.simulateur.Id
+                : "Le simulateur n'est pas en ligne."
+            }
+            style={{ marginBottom: "10px" }}
+            prefix={
+              <ShareAltOutlined
+                translate="yes"
+                className="site-form-item-icon"
+              />
+            }
+            suffix={
+              <Tooltip title="C'est le lien de ton simulateur. S'il est en mode 'En ligne', tu peux le partager à n'importe qui ! Il arrivera droit sur ton simulateur de capture.">
+                <InfoCircleOutlined
+                  translate="yes"
+                  style={{ color: "rgba(0,0,0,.45)" }}
+                />
+              </Tooltip>
+            }
+          />
+          <div style={{ textAlign: "right", marginTop: "40px" }}>
+            <Popconfirm
+              title="Es-tu sûr de voulir supprimer ce simulateur ? Il sera impossible de le récupérer."
+              onConfirm={deleteSimulateur}
+              okText="Oui"
+              cancelText="Non"
+            >
+              <Button danger>
+                <DeleteOutlined translate="yes" />
+                Supprimer le simulateur
+              </Button>
+            </Popconfirm>
+          </div>
         </div>
       </Modal>
     </div>

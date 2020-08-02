@@ -40,6 +40,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
           visible={configSimulateurPopup}
           setVisible={setConfigSimulateurPopup}
           simulateur={monContext.User.get.simulateurs[selectedSimulateur]}
+          selectedSimulateur={selectedSimulateur}
         />
       )}
       {statsSimulateurPopup && (
@@ -76,7 +77,7 @@ const MesSimulateurs: FunctionComponent<IMesSimulateurs> = (props) => {
                       setSelectedSimulateur(i);
                     }}
                   >
-                    <CardSimulateur
+                    <CardSimulateur               
                       openPopupStatistiques={setStatSimulateurPopup}
                       openPopupConfig={setConfigSimulateurPopup}
                       simulateur={value}

@@ -1,4 +1,4 @@
-import { Button, Layout } from "antd";
+import { Button, Col, Layout, Row, Tooltip } from "antd";
 import React, {
   FunctionComponent,
   useEffect,
@@ -27,15 +27,23 @@ const HeaderSimulationCreation: FunctionComponent<IHeaderSimulationCreation> = (
       style={{ position: "fixed", zIndex: 1, width: "100%" }}
       className="header-creation-simulateur"
     >
-      <Link to="/">
-        <Button icon={<LeftOutlined translate="yes" />} />
-      </Link>
-      <img
-        style={{ width: "40px", marginLeft: "20px", marginRight: "20px" }}
-        src={ImgLogo}
-        alt="master-capture-brutom"
-      />
-      Création de simulateur
+      <Row>
+        <Col span={8}>
+          <Link to="/">
+            <Button icon={<LeftOutlined translate="yes" />} />
+          </Link>
+          <img
+            style={{ width: "40px", marginLeft: "20px", marginRight: "20px" }}
+            src={ImgLogo}
+            alt="master-capture-brutom"
+          />
+          Création de simulateur
+        </Col>
+        <Col style={{ textAlign: "right" }} span={8} offset={8}>
+          <Tooltip title="Le simulateur se met à jour directement à chaque modifications que tu fais. Pas besoin de sauvegarder, pas de perte de données !"><div className="dot" /></Tooltip>
+          Modifications en live
+        </Col>
+      </Row>
     </Header>
   );
 };

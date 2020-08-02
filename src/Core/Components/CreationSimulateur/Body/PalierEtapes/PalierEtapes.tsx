@@ -16,7 +16,6 @@ const PalierEtapes: FunctionComponent<IPalierEtapes> = (props) => {
   // const monContext: IContext = useContext(Context);
 
   useEffect(() => {
-    // console.log(props.etapesDuSimulateur[props.currentEtapeOfSimulateur].title);
     return () => {
       //
     };

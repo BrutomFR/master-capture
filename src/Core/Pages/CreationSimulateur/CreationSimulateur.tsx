@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 import BodyCreationSimulateur from "src/Core/Components/CreationSimulateur/Body/BodyCreationSimulateur";
 import FooterCreationSimulateur from "src/Core/Components/CreationSimulateur/Footer/FooterCreationSimulateur";
 import HeaderSimulationCreation from "src/Core/Components/CreationSimulateur/Header/HeaderSimulationCreation";
@@ -76,13 +77,15 @@ const CreationSimulateur: FunctionComponent<ICreationSimulateur> = (props) => {
                 </Button>
               )}
               {currentStep === steps.length - 1 && (
-                <Button
-                  size="large"
-                  type="primary"
-                  onClick={() => message.success("Processing complete!")}
-                >
-                  TERMINER
-                </Button>
+                <Link to="/">
+                  <Button
+                    size="large"
+                    type="primary"
+                    onClick={() => message.success("Simulateur validé !")}
+                  >
+                    TERMINER
+                  </Button>
+                </Link>
               )}
               {currentStep > 0 && (
                 <Button

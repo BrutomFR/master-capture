@@ -13,6 +13,7 @@ import "./.css";
 import MenuConfigPalier from "./MenuConfigPalier/MenuConfigPalier";
 import PalierCapture from "./PalierCapture/PalierCapture";
 import PalierEtapes from "./PalierEtapes/PalierEtapes";
+import PalierTarifs from "./ParlierTarifs/PalierTarifs";
 import { IBodyCreationSimulateur } from "./props";
 const { Content } = Layout;
 const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
@@ -22,6 +23,12 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
   const [backgroundColorHeader, setBackgroundColorHeader] = useState<string>(
     "#0582ca"
   );
+  const [backgroundTarifsHeaderColor, setBackgroundTarifsColor] = useState<
+    string
+  >("#0582ca");
+  const [backgroundTarifsPlanColor, setBackgroundTarifsPlanColor] = useState<
+    string
+  >("#57A1CB");
   const [etapesDuSimulateur, setEtapesDuSimulateur] = useState<
     IEtapeDuSimulateur[]
   >([]);
@@ -61,6 +68,10 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
         <Layout>
           {props.currentStep === 0 ? ( // SI C'EST PALIER DE CAPTURE
             <MenuConfigPalier
+              backgroundTarifsPlanColor={backgroundTarifsPlanColor}
+              setBackgroundTarifsPlanColor={setBackgroundTarifsPlanColor}
+              backgroundTarifsHeaderColor={backgroundTarifsHeaderColor}
+              setBackgroundTarifsHeaderColor={setBackgroundTarifsColor}
               backgroundColorHeader={backgroundColorHeader}
               setBackgroundColorHeader={setBackgroundColorHeader}
               palierSelected={0}
@@ -69,6 +80,10 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
             />
           ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
             <MenuConfigPalier
+              backgroundTarifsPlanColor={backgroundTarifsPlanColor}
+              setBackgroundTarifsPlanColor={setBackgroundTarifsPlanColor}
+              backgroundTarifsHeaderColor={backgroundTarifsHeaderColor}
+              setBackgroundTarifsHeaderColor={setBackgroundTarifsColor}
               backgroundColorHeader={backgroundColorHeader}
               setBackgroundColorHeader={setBackgroundColorHeader}
               etapeConfigSelected={
@@ -81,6 +96,10 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
           ) : (
             props.currentStep === 2 && (
               <MenuConfigPalier
+                backgroundTarifsPlanColor={backgroundTarifsPlanColor}
+                setBackgroundTarifsPlanColor={setBackgroundTarifsPlanColor}
+                backgroundTarifsHeaderColor={backgroundTarifsHeaderColor}
+                setBackgroundTarifsHeaderColor={setBackgroundTarifsColor}
                 backgroundColorHeader={backgroundColorHeader}
                 setBackgroundColorHeader={setBackgroundColorHeader}
                 palierSelected={2}
@@ -117,9 +136,11 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
               />
             ) : (
               props.currentStep === 2 && ( // SI C'EST PALIER DES TARIFS
-                <div className="steps-content">
-                  {props.steps[props.currentStep].content}
-                </div>
+                <PalierTarifs
+                  backgroundTarifsHeaderColor={backgroundTarifsHeaderColor}
+                  backgroundTarifsPlanColor={backgroundTarifsPlanColor}
+                  simulateurSelected={simulateurSelected}
+                />
               )
             )}
           </Content>

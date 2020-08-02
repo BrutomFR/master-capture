@@ -1,6 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Store } from "antd/lib/form/interface";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import ImgLog from "../../../Img/logo-bruton-blanc-300x300.png";
 import * as FirebaseHelper from "../../../Utils/FirebaseHelper";
@@ -27,8 +26,6 @@ const Login: FunctionComponent<ILogin> = (props) => {
     };
   }, []);
 
-  const onFinishFailed = (errorInfo: Store) =>
-    console.log("Failed:", errorInfo);
   return (
     <div>
       <div>
@@ -41,7 +38,6 @@ const Login: FunctionComponent<ILogin> = (props) => {
             name="basic"
             initialValues={{ remember: true }}
             onFinish={connect}
-            onFinishFailed={onFinishFailed}
           >
             <Input
               placeholder="Email"

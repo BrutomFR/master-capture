@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import { Observable } from "rxjs";
+import ISimulateur from "src/Core/Interfaces/User/ISimulateur";
 import { IUser } from "../Core/Interfaces/IUser";
 // INITIALIZE
 export default firebase
@@ -37,4 +38,10 @@ export function GetClient(uid: string) {
       .doc(uid)
       .onSnapshot((o) => sub.next(o.data()));
   });
+}
+export function PublierSimulateur(simu: ISimulateur) {
+  return db.collection("publics_simulators").doc(simu.Id.toString()).set(simu);
+}
+export function DesactiverSimulateur(simu: ISimulateur) {
+  return db.collection("publics_simulators").doc(simu.Id.toString()).delete();
 }
