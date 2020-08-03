@@ -76,6 +76,7 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
       },
       public: false,
       lien_rgpd: "",
+      id_user: monContext.Auth.get.uid,
     };
     monContext.User.get.simulateurs.push(simulateur);
     FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);

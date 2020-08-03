@@ -43,6 +43,7 @@ export function GetClient(uid: string) {
   });
 }
 export function PublierSimulateur(simu: ISimulateur) {
+  simu.prospects = [];
   return db.collection("publics_simulators").doc(simu.Id.toString()).set(simu);
 }
 export function DesactiverSimulateur(simu: ISimulateur) {

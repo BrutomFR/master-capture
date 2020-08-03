@@ -49,6 +49,7 @@ const App: FunctionComponent = (props) => {
                 createSimulateur: true,
               },
               simulateurs: [],
+              email: a.email,
             });
           }
           setAuth(a);
@@ -67,15 +68,19 @@ const App: FunctionComponent = (props) => {
 
   return (
     <Context.Provider value={getContext}>
-      {auth.uid === "" ? (
-        <Login />
+      {sizeScreen > 900 ? (
+        auth.uid === "" ? (
+          <Login />
+        ) : (
+          <BrowserRouter>
+            <Switch>
+              <Route path="/simulateur/:id" component={CreationSimulateur} />
+              <Route path="/" component={Dashboard} />
+            </Switch>
+          </BrowserRouter>
+        )
       ) : (
-        <BrowserRouter>
-          <Switch>
-            <Route path="/simulateur/:id" component={CreationSimulateur} />
-            <Route path="/" component={Dashboard} />
-          </Switch>
-        </BrowserRouter>
+        <div>La version mobile n'est pas encore disponible.</div>
       )}
     </Context.Provider>
   );

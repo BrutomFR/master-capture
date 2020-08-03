@@ -9,6 +9,7 @@ import { IStatistiquesSimulateur } from "./Pages_Simulations/IStatistiquesSimula
 export default interface ISimulateur {
   Nom: string;
   Id: number;
+  id_user: string;
   etapes_view: IEtapes_View[];
   statistiques_simulateurs: IStatistiquesSimulateur[];
   prospects: IProspects[];

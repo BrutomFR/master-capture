@@ -45,6 +45,7 @@ const PopupNewUser: FunctionComponent<IPopupNewUser> = (props) => {
           newUser: false,
         },
         simulateurs: [],
+        email: monContext.User.get.email
       };
       FirebaseHelper.CreateClient(monContext.Auth.get.uid, user);
       message.success(user.Prenom + ", bienvenue à toi sur Master Capture !");
