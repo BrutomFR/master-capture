@@ -195,7 +195,7 @@ const PopupConfigSimulateur: FunctionComponent<IPopupConfigSimulateur> = (
           <Input
             value={
               props.simulateur.public
-                ? "https://capture-master.com/simulateur/" + props.simulateur.Id
+                ? "https://master-capture.com/simulateur/" + props.simulateur.Id
                 : "Le simulateur n'est pas en ligne."
             }
             style={{ marginBottom: "10px" }}
