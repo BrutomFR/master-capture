@@ -12,4 +12,5 @@ export interface IMenuConfigPalier {
   palierSelected: number;
   simulateurSelected: IPages_Simulations;
   currentEtapeOfSimulateur: number
+  onChangeEtape: (etape: number) => void;
 }

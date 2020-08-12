@@ -74,6 +74,7 @@ const MenuConfigPalier: FunctionComponent<IMenuConfigPalier> = (props) => {
           <MenuConfigPalierEtapes
             simulateurSelected={props.simulateurSelected}
             currentEtapeOfSimulateur={props.currentEtapeOfSimulateur}
+            onChangeEtape={props.onChangeEtape}
           />
         )}
         {props.palierSelected === 2 && (

@@ -77,6 +77,7 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
               palierSelected={0}
               simulateurSelected={simulateurSelected}
               currentEtapeOfSimulateur={currentEtapeOfSimulateur}
+              onChangeEtape={onChangeEtape}
             />
           ) : props.currentStep === 1 ? ( // SI C'EST PALIER DES ETAPES DU SIMULATEUR
             <MenuConfigPalier
@@ -92,10 +93,12 @@ const BodyCreationSimulateur: FunctionComponent<IBodyCreationSimulateur> = (
               simulateurSelected={simulateurSelected}
               palierSelected={1}
               currentEtapeOfSimulateur={currentEtapeOfSimulateur}
+              onChangeEtape={onChangeEtape}
             />
           ) : (
             props.currentStep === 2 && (
               <MenuConfigPalier
+                onChangeEtape={onChangeEtape}
                 backgroundTarifsPlanColor={backgroundTarifsPlanColor}
                 setBackgroundTarifsPlanColor={setBackgroundTarifsPlanColor}
                 backgroundTarifsHeaderColor={backgroundTarifsHeaderColor}

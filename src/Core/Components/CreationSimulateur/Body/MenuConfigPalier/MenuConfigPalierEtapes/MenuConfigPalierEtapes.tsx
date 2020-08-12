@@ -22,7 +22,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
     return () => {
       //
     };
-  }, [props.currentEtapeOfSimulateur]);
+  }, [monContext.User.get]);
 
   const deleteEtapeInSimulateur = () => {
     if (props.simulateurSelected) {
@@ -30,6 +30,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
         props.currentEtapeOfSimulateur,
         1
       );
+      props.onChangeEtape(props.currentEtapeOfSimulateur - 1)
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     }
   };
@@ -118,6 +119,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
         Configuration de l'étape séléctionnée.
       </div>
       <div className="title-config-palier-container">Question:</div>
+      {console.log(props.currentEtapeOfSimulateur)}
       <Input
         onChange={changeQuestion}
         defaultValue={
