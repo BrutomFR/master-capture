@@ -22,7 +22,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
     return () => {
       //
     };
-  }, []);
+  }, [props.currentEtapeOfSimulateur]);
 
   const deleteEtapeInSimulateur = () => {
     if (props.simulateurSelected) {
@@ -120,10 +120,11 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
       <div className="title-config-palier-container">Question:</div>
       <Input
         onChange={changeQuestion}
-        placeholder={
+        defaultValue={
           props.simulateurSelected.etapes_view[props.currentEtapeOfSimulateur]
             .question
         }
+        key={props.currentEtapeOfSimulateur}
       />
       <div className="title-config-palier-container">Réponses:</div>
       <Collapse accordion bordered={false} defaultActiveKey={["0"]}>
@@ -136,7 +137,8 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               <div className="title-input-config">Bouton de réponse:</div>
               <Input
                 onChange={(e) => changeReponse(e, key)}
-                placeholder={value.reponse}
+                defaultValue={value.reponse}
+                key={props.currentEtapeOfSimulateur}
               />
               <div className="title-input-config">
                 Informations de la réponse:
@@ -144,7 +146,8 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               <TextArea
                 rows={4}
                 onChange={(e) => changeInformations(e, key)}
-                placeholder={value.informations}
+                defaultValue={value.informations}
+                key={props.currentEtapeOfSimulateur + 1}
               />
               <div className="title-input-config">
                 Nom de l'option:
@@ -154,7 +157,8 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               </div>
               <Input
                 onChange={(e) => changeNomOption(e, key)}
-                placeholder={value.nom_option}
+                defaultValue={value.nom_option}
+                key={props.currentEtapeOfSimulateur + 2}
               />
               <div className="title-input-config">
                 Prix:
@@ -164,8 +168,9 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               </div>
 
               <InputNumber
-                min={1}
-                placeholder={value.prix.toString()}
+                defaultValue={value.prix}
+                key={props.currentEtapeOfSimulateur + 3}
+                min={0}
                 onChange={(e) => changePrice(e, key)}
               />
               {props.simulateurSelected.devise}
@@ -177,7 +182,8 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
                 </Tooltip>
               </div>
               <Select
-                defaultValue="false"
+                defaultValue={value.abonement.toString()}
+                key={props.currentEtapeOfSimulateur + 4}
                 style={{ width: 120 }}
                 onChange={(e) => handleChangeTypePrice(e, key)}
               >
