@@ -30,7 +30,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
         props.currentEtapeOfSimulateur,
         1
       );
-      props.onChangeEtape(props.currentEtapeOfSimulateur - 1)
+      props.onChangeEtape(props.currentEtapeOfSimulateur - 1);
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     }
   };
@@ -39,6 +39,14 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
       props.simulateurSelected.etapes_view[
         props.currentEtapeOfSimulateur
       ].question = e.target.value;
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+    }
+  };
+  const changeNomEtape = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.simulateurSelected) {
+      props.simulateurSelected.etapes_view[
+        props.currentEtapeOfSimulateur
+      ].titre_progressbar = e.target.value;
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     }
   };
@@ -119,7 +127,6 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
         Configuration de l'étape séléctionnée.
       </div>
       <div className="title-config-palier-container">Question:</div>
-      {console.log(props.currentEtapeOfSimulateur)}
       <Input
         onChange={changeQuestion}
         defaultValue={
@@ -127,6 +134,15 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
             .question
         }
         key={props.currentEtapeOfSimulateur}
+      />
+      <div className="title-config-palier-container">Nom de l'étape:</div>
+      <Input
+        onChange={changeNomEtape}
+        defaultValue={
+          props.simulateurSelected.etapes_view[props.currentEtapeOfSimulateur]
+            .titre_progressbar
+        }
+        key={props.currentEtapeOfSimulateur + 5}
       />
       <div className="title-config-palier-container">Réponses:</div>
       <Collapse accordion bordered={false} defaultActiveKey={["0"]}>
