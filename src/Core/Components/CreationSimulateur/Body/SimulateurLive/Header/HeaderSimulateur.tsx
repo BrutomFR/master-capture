@@ -27,6 +27,7 @@ const HeaderSimulateur: FunctionComponent<IHeaderSimulateur> = (props) => {
       information: {
         description: "",
         titre: "",
+        valide: false,
       },
       question: "Nouvelle question.",
       reponses: [],

@@ -3,8 +3,21 @@ import {
   InfoCircleOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Collapse, Input, InputNumber, Select, Tooltip } from "antd";
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import {
+  Button,
+  Collapse,
+  Input,
+  InputNumber,
+  Select,
+  Switch,
+  Tooltip,
+} from "antd";
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Context, IContext } from "src/Utils/context";
 import * as FirebaseHelper from "src/Utils/FirebaseHelper";
 import { isNumber } from "util";
@@ -18,22 +31,63 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
   props
 ) => {
   const monContext: IContext = useContext(Context);
+  const [checkedInformation, setCheckedInformation] = useState<boolean>(false);
+  const [keyComponent, setKeyComponent] = useState<number>(20);
   useEffect(() => {
+    setKeyComponent(keyComponent + 1);
+    if (
+      props.simulateurSelected.etapes_view[props.currentEtapeOfSimulateur]
+        .information.valide
+    )
+      setCheckedInformation(true);
+    else {
+      setCheckedInformation(false);
+    }
     return () => {
       //
     };
-  }, [monContext.User.get]);
-
+  }, [props.currentEtapeOfSimulateur]);
+  const checked = (checked: boolean, e: MouseEvent) => {
+    setCheckedInformation(checked);
+    props.simulateurSelected.etapes_view[
+      props.currentEtapeOfSimulateur
+    ].information.valide = checked;
+    FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+  };
   const deleteEtapeInSimulateur = () => {
     if (props.simulateurSelected) {
       props.simulateurSelected.etapes_view.splice(
         props.currentEtapeOfSimulateur,
         1
       );
-      props.onChangeEtape(props.currentEtapeOfSimulateur - 1);
+      if (props.simulateurSelected.etapes_view.length !== 1)
+        if (props.currentEtapeOfSimulateur > 0)
+          props.onChangeEtape(props.currentEtapeOfSimulateur - 1);
       FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
     }
   };
+
+  const changeTitreInformation = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.simulateurSelected) {
+      props.simulateurSelected.etapes_view[
+        props.currentEtapeOfSimulateur
+      ].information.titre = e.target.value;
+
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+    }
+  };
+  const changeDescriptionInformation = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if (props.simulateurSelected) {
+      props.simulateurSelected.etapes_view[
+        props.currentEtapeOfSimulateur
+      ].information.description = e.target.value;
+
+      FirebaseHelper.UpdateClient(monContext.Auth.get.uid, monContext.User.get);
+    }
+  };
+
   const changeQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.simulateurSelected) {
       props.simulateurSelected.etapes_view[
@@ -133,7 +187,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
           props.simulateurSelected.etapes_view[props.currentEtapeOfSimulateur]
             .question
         }
-        key={props.currentEtapeOfSimulateur}
+        key={3000 + keyComponent}
       />
       <div className="title-config-palier-container">Nom de l'étape:</div>
       <Input
@@ -142,7 +196,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
           props.simulateurSelected.etapes_view[props.currentEtapeOfSimulateur]
             .titre_progressbar
         }
-        key={props.currentEtapeOfSimulateur + 5}
+        key={4000 + keyComponent}
       />
       <div className="title-config-palier-container">Réponses:</div>
       <Collapse accordion bordered={false} defaultActiveKey={["0"]}>
@@ -156,7 +210,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               <Input
                 onChange={(e) => changeReponse(e, key)}
                 defaultValue={value.reponse}
-                key={props.currentEtapeOfSimulateur}
+                key={5000 + keyComponent}
               />
               <div className="title-input-config">
                 Informations de la réponse:
@@ -165,7 +219,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
                 rows={4}
                 onChange={(e) => changeInformations(e, key)}
                 defaultValue={value.informations}
-                key={props.currentEtapeOfSimulateur + 1}
+                key={6000 + keyComponent}
               />
               <div className="title-input-config">
                 Nom de l'option:
@@ -176,7 +230,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               <Input
                 onChange={(e) => changeNomOption(e, key)}
                 defaultValue={value.nom_option}
-                key={props.currentEtapeOfSimulateur + 2}
+                key={7000 + keyComponent}
               />
               <div className="title-input-config">
                 Prix:
@@ -187,7 +241,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
 
               <InputNumber
                 defaultValue={value.prix}
-                key={props.currentEtapeOfSimulateur + 3}
+                key={8000 + keyComponent}
                 min={0}
                 onChange={(e) => changePrice(e, key)}
               />
@@ -201,7 +255,7 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
               </div>
               <Select
                 defaultValue={value.abonement.toString()}
-                key={props.currentEtapeOfSimulateur + 4}
+                key={9000 + keyComponent}
                 style={{ width: 120 }}
                 onChange={(e) => handleChangeTypePrice(e, key)}
               >
@@ -238,6 +292,49 @@ const MenuConfigPalierEtapes: FunctionComponent<IMenuConfigPalierEtapes> = (
         >
           Ajouter une réponse
         </Button>
+      </div>
+      <div
+        style={{
+          marginBottom: "20px",
+        }}
+      >
+        <div className="title-config-palier-container">
+          Information de l'étape: (facultatif)
+        </div>
+        <Switch
+          checked={checkedInformation}
+          onChange={checked}
+          key={10000 + keyComponent}
+        />
+        {checkedInformation && (
+          <div>
+            <div className="title-config-palier-container">
+              Titre de l'information:
+            </div>
+            <Input
+              onChange={changeTitreInformation}
+              defaultValue={
+                props.simulateurSelected.etapes_view[
+                  props.currentEtapeOfSimulateur
+                ].information.titre
+              }
+              key={1000 + keyComponent}
+            />
+            <div className="title-config-palier-container">
+              Description de l'information:
+            </div>
+            <TextArea
+              onChange={changeDescriptionInformation}
+              rows={4}
+              defaultValue={
+                props.simulateurSelected.etapes_view[
+                  props.currentEtapeOfSimulateur
+                ].information.description
+              }
+              key={2000 + keyComponent}
+            />
+          </div>
+        )}
       </div>
 
       <div className="container-button-delete-etape">

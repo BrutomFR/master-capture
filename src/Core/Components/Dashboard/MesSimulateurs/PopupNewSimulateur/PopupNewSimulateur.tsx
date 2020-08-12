@@ -51,6 +51,11 @@ const PopupNewSimulateur: FunctionComponent<IPopupNewSimulateur> = (props) => {
               prix: 30,
             },
           ],
+          information: {
+            titre: "",
+            description: "",
+            valide: false,
+          },
         },
       ],
       statistiques_simulateurs: [],
